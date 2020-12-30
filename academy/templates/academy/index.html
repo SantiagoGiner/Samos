@@ -1,0 +1,214 @@
+{% extends 'academy/layout.html' %}
+{% load static %}
+
+{% block head %}
+    <script src="{% static 'academy/welcome.js' %}"></script> 
+{% endblock %}
+
+{% block title %} Samos Academy {% endblock %}
+
+{% block body %}
+    <h1 class="transition" id="welcome" style="text-align: center;" >Welcome to Samos Academy</h1>
+    <hr>
+    <div id="background">
+        <p class="transition">
+            My name is Santiago Giner, and I am a first-year student at Harvard College 
+            studying physics.
+        </p>
+        <div id="introduction">
+            <img class="transition" id="myphoto" src="{% static 'academy/me.jpg' %}" alt="Photo of me">
+            <p class="text-justify mx-5 mt-5" id="samos-description">
+                This is my tutoring website, where you can view the subjects I can teach and also schedule classes with
+                me. I tutor in physics, math, computer science, and programming. I also specialize in standardized
+                testing for college applications (in the US and abroad). I scored a 1520 on the SAT, 800 in the SAT 
+                Math Level 2, and 780 in the Physics SAT Subject Test. I am now in my second semester at Harvard, 
+                where I have taken classes in physics, math, computer science, and astrophysics. Do feel free to 
+                contact me at <a href="mailto:santiagoginer@college.harvard.edu">santiagoginer@college.harvard.edu</a> 
+                with any and all questions regarding this website, my tutoring, or anything else you might have questions 
+                about. My goal is to teach as many people as I can, helping you achieve your academic goals, and
+                offering advice on college in general.
+            </p>
+            <div id="center-flex">
+                <hr class="transition">
+                <h2>About Me</h2>
+                <img class="img-center" src="{% static 'academy/harvard.jpg' %}" alt="Harvard">
+                <img src="{% static 'academy/venezuela.jpg' %}" alt="Venezuelan Flag" class="img-center" id="venezuela">
+                <p class="text-justify mx-4 mt-2 mb-5">
+                    I was born and raised in Caracas, Venezuela. I am currently living in Cambridge, Massachusetts
+                    on the Harvard campus. I graduated from high school in 2020 from Instituto Educational Henry
+                    Clay in Caracas.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div id="overview" class="transition">
+        <hr class="transition">
+        <h2>Classes</h2>
+        <div class="card-deck">
+            <div class="card w-75 mx-3 my-3 p-3" style="width: 18rem; height: 25rem;">
+                <img src="{% static 'academy/physics.jpg' %}" style="height: 45%;">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: #000000;">Physics</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">From Classical Mechanics to Electromagnetism</h6>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-success mt-2" data-toggle="modal" data-target="#physicsModal">
+                        Start learning!
+                    </button>
+                </div>
+            </div>
+            <div class="card w-75 mx-3 my-3 p-3" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: #000000;">Mathematics</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        From algebra, trigonometry, and pre-calc to multivariable calculus and more
+                    </h6>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-success mt-2" data-toggle="modal" data-target="#mathModal">
+                        Start learning!
+                    </button>
+                </div>
+            </div>
+            <div class="card w-75 mx-3 my-3 p-3" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: #000000;">Standardized Tests</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">SAT, SAT Subject Tests, TOEFL, and more...</h6>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-success mt-2" data-toggle="modal" data-target="#testsModal">
+                        Start learning!
+                    </button>
+                </div>
+            </div>
+            <div class="card w-75 mx-3 my-3 p-3" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: #000000;">Programming</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Python, C, JavaScript, and web development</h6>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-success mt-2" data-toggle="modal" data-target="#programmingModal">
+                        Start learning!
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Physics Modal -->
+    <div class="modal fade" id="physicsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="color: #000000;">Physics</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <p style="color: #000000; font-size: 2.2vh;">
+                        You might not realize it, but physics and its achievements are all around you.
+                        For me, physics is one of the greatest achievements of humanity, which allows
+                        us to explain everything we see around us, from the behavior of subnuclear
+                        particles to the large-scale structure of stars and galaxy superclusters. 
+                        Not only that, physics is behind all the major technological advancements of 
+                        our era, including computers, wireless communication, batteries, transportation,
+                        and many others. I wish not only to teach you how to solve problems in physics 
+                        and think analytically and critically, but I also want to teach you about
+                        the importance of physics, how it applies to our everyday life, and all the
+                        beauty it represents.                              
+                    </p>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a href="{% url 'academy:schedule' %}" type="button" class="btn btn-primary">Enroll in tutoring</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Math Modal -->
+    <div class="modal fade" id="mathModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="color: #000000;">Mathematics</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <p style="color: #000000; font-size: 2.2vh;">
+                        Mathematics is the basis of most everything that is done in modern science. It is the backbone
+                        of our understanding of the universe and it offers us a beautifully elegant framework upon
+                        which we can model real-world phenomena and make accurate predictions about them. Math is
+                        a language in it of itself, and speaking that language is one of the most useful skills one
+                        can learn, for it literally opens up a world of opportunites in which to work on and areas
+                        to explore. I hope to teach you not only mathematical concepts and abilities but also their
+                        real-world applications and importance.                         
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <a href="{% url 'academy:schedule' %}" type="button" class="btn btn-primary">Enroll in tutoring</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Tests Modal -->
+    <div class="modal fade" id="testsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="color: #000000;">Standardized Tests</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <p style="color: #000000; font-size: 2.2vh;">
+                        You might not realize it, but physics and its achievements are all around you.
+                        For me, physics is one of the greatest achievements of humanity, which allows
+                        us to explain everything we see around us, from the behavior of subnuclear
+                        particles to the large-scale structure of stars and galaxy superclusters. 
+                        Not only that, physics is behind all the major technological advancements of 
+                        our era, including computers, wireless communication, batteries, transportation,
+                        and many others. I wish not only to teach you how to solve problems in physics 
+                        and think analytically and critically, but I also want to teach you about
+                        the importance of physics, how it applies to our everyday life, and all the
+                        beauty it represents.                              
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <a href="{% url 'academy:schedule' %}" type="button" class="btn btn-primary">Enroll in tutoring</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Programming Modal -->
+    <div class="modal fade" id="programmingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="color: #000000;">Programming and Computer Science</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <p style="color: #000000; font-size: 2.2vh;">
+                        You might not realize it, but physics and its achievements are all around you.
+                        For me, physics is one of the greatest achievements of humanity, which allows
+                        us to explain everything we see around us, from the behavior of subnuclear
+                        particles to the large-scale structure of stars and galaxy superclusters. 
+                        Not only that, physics is behind all the major technological advancements of 
+                        our era, including computers, wireless communication, batteries, transportation,
+                        and many others. I wish not only to teach you how to solve problems in physics 
+                        and think analytically and critically, but I also want to teach you about
+                        the importance of physics, how it applies to our everyday life, and all the
+                        beauty it represents.                              
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <a href="{% url 'academy:schedule' %}" type="button" class="btn btn-primary">Enroll in tutoring</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

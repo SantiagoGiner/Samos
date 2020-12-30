@@ -1,0 +1,19 @@
+{% extends "academy/layout.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %} Login {% endblock %}
+
+{% block body %}
+    <h1>Samos Academy: User Login</h1>
+    <hr>
+    <!-- Display the login form -->
+    <form action="{% url 'academy:login' %}" autocomplete="off" method="post">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <button class="btn btn-success" type="submit">Login</button>
+        <!-- Redirect the user to register if they do not have an account -->
+        <p>Don't have an account? <a href="{% url 'academy:register' %}">Create One</a></p>
+        <h5 style="margin-top: 100px;">"Be ashamed to die until you have scored some victory for humanity"</h5>
+        <p>- Horace Mann</p>
+    </form>
+{% endblock %}
