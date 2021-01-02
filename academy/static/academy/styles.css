@@ -53,12 +53,16 @@ hr {
     background-color: #00ff00;
 }
 
+label[class=""] {
+    font-size: 21px;
+}
+
 main {
     overflow-x: hidden;
 }
 
 p {
-    font-size: 2.5vh;
+    font-size: 1.5vw;
 }
 
 
@@ -68,6 +72,16 @@ p {
     animation-name: fadeout;
     animation-duration: 4s;
     animation-fill-mode: forwards;
+}
+
+.form-group {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.form-text.text-muted {
+    color: #7fe06cfd !important;
+    font-size: 18px;
 }
 
 .transition {
@@ -82,6 +96,12 @@ p {
     width: 290px;
     margin-top: 50px;
     margin-bottom: 30px;
+}
+
+.requiredField {
+    font-size: 21px;
+    margin-bottom: 5px;
+    color: #e0dcdc;
 }
 
 
@@ -99,8 +119,8 @@ p {
 
 #myphoto {
     left: 0%;
-    height: 380px;
-    width: 310px;
+    height: 410px;
+    width: 330px;
     margin-bottom: 30px;
     margin-top: 25px;
     border-radius: 10%;

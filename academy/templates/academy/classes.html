@@ -1,0 +1,204 @@
+{% extends 'academy/layout.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block head %}
+    <style>
+        html, body {
+            background-image: linear-gradient(45deg, #414f8d, #181f47);
+        }
+    </style>
+    <script src="{% static 'academy/classes.js' %}"></script>
+{% endblock %}
+
+{% block title %} Classes {% endblock %}
+
+{% block body %}
+    <div id="overview" class="transition">
+        <h1>Samos Academy: Classes</h1>
+        <hr class="transition">
+        <div class="card-deck">
+            <div class="card w-75 mx-3 my-3 p-3" style="width: 18rem; height: 25rem;">
+                <img src="{% static 'academy/physics.jpg' %}" style="height: 45%;" alt="Wonders of Physics">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: #000000;">Physics</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">From Classical Mechanics to Electromagnetism</h6>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-success mt-2" data-toggle="modal" data-target="#physicsModal">
+                        Start learning!
+                    </button>
+                </div>
+            </div>
+            <div class="card w-75 mx-3 my-3 p-3" style="width: 18rem; height: 25rem;">
+                <img src="{% static 'academy/math.jpg' %}" style="height: 45%;" alt="Wonders of Math">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: #000000;">Mathematics</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        From algebra, trigonometry, and pre-calc to multivariable calculus and more
+                    </h6>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-success mt-2" data-toggle="modal" data-target="#mathModal">
+                        Start learning!
+                    </button>
+                </div>
+            </div>
+            <div class="card w-75 mx-3 my-3 p-3" style="width: 18rem; height: 25rem;">
+                <img src="{% static 'academy/tests.jpg' %}" style="height: 45%;" alt="Answer Sheet on Test">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: #000000;">Standardized Tests</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">SAT, SAT Subject Tests, TOEFL, and more...</h6>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-success mt-2" data-toggle="modal" data-target="#testsModal">
+                        Start learning!
+                    </button>
+                </div>
+            </div>
+            <div class="card w-75 mx-3 my-3 p-3" style="width: 18rem; height: 25rem;">
+                <img src="{% static 'academy/programming.jpg' %}" style="height: 40%;" alt="Programming languages">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: #000000;">Programming</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Python, C, JavaScript, and web development</h6>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-success mt-2" data-toggle="modal" data-target="#programmingModal">
+                        Start learning!
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Physics Modal -->
+    <div class="modal fade" id="physicsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="color: #000000;">Physics</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <img class="container my-4" src="{% static 'academy/physics.jpg' %}" style="height: 45%; width: 100%;" alt="Wonders of Physics">
+                    <p style="color: #000000; font-size: 1.3vw;">
+                        You might not realize it, but physics and its achievements are all around you.
+                        For me, physics is one of the greatest achievements of humanity, which allows
+                        us to explain everything we see around us, from the behavior of subnuclear
+                        particles to the large-scale structure of stars and galaxy superclusters. 
+                        Not only that, physics is behind all the major technological advancements of 
+                        our era, including computers, wireless communication, batteries, transportation,
+                        and many others. I wish not only to teach you how to solve problems in physics 
+                        and think analytically and critically, but I also want to teach you about
+                        the importance of physics, how it applies to our everyday life, and all the
+                        beauty it represents.                              
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button class="btn btn-success">Enroll in tutoring!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Math Modal -->
+    <div class="modal fade" id="mathModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="color: #000000;">Mathematics</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <img class="container my-4" src="{% static 'academy/math.jpg' %}" style="height: 45%; width: 100%;" alt="Wonders of Math">
+                    <p style="color: #000000; font-size: 1.3vw;">
+                        Mathematics is the basis of most everything that is done in modern science. It is the backbone
+                        of our understanding of the universe and it offers us a beautifully elegant framework upon
+                        which we can model real-world phenomena and make accurate predictions about them. Math is
+                        a language in it of itself, and speaking that language is one of the most useful skills one
+                        can learn, for it literally opens up a world of opportunites in which to work on and areas
+                        to explore. I hope to teach you not only mathematical concepts and abilities but also their
+                        real-world applications and importance.                         
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button class="btn btn-success" >Enroll in tutoring!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Tests Modal -->
+    <div class="modal fade" id="testsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="color: #000000;">Standardized Tests</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <img class="container my-4" src="{% static 'academy/tests.jpg' %}" style="height: 45%; width: 100%;" alt="Answer Sheet on Test">
+                    <p style="color: #000000; font-size: 1.3vw;">
+                        You might not realize it, but physics and its achievements are all around you.
+                        For me, physics is one of the greatest achievements of humanity, which allows
+                        us to explain everything we see around us, from the behavior of subnuclear
+                        particles to the large-scale structure of stars and galaxy superclusters. 
+                        Not only that, physics is behind all the major technological advancements of 
+                        our era, including computers, wireless communication, batteries, transportation,
+                        and many others. I wish not only to teach you how to solve problems in physics 
+                        and think analytically and critically, but I also want to teach you about
+                        the importance of physics, how it applies to our everyday life, and all the
+                        beauty it represents.                              
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button class="btn btn-success" >Enroll in tutoring!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Programming Modal -->
+    <div class="modal fade" id="programmingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="color: #000000;">Programming and Computer Science</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <img class="container my-4" src="{% static 'academy/programming.jpg' %}" style="height: 45%; width: 100%;" alt="Programming Languages">
+                    <p style="color: #000000; font-size: 1.3vw;">
+                        You might not realize it, but physics and its achievements are all around you.
+                        For me, physics is one of the greatest achievements of humanity, which allows
+                        us to explain everything we see around us, from the behavior of subnuclear
+                        particles to the large-scale structure of stars and galaxy superclusters. 
+                        Not only that, physics is behind all the major technological advancements of 
+                        our era, including computers, wireless communication, batteries, transportation,
+                        and many others. I wish not only to teach you how to solve problems in physics 
+                        and think analytically and critically, but I also want to teach you about
+                        the importance of physics, how it applies to our everyday life, and all the
+                        beauty it represents.                              
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button class="btn btn-success" >Enroll in tutoring!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="enroll">
+        <hr class="transition">
+        <h2>Enroll in Samos Academy</h2>
+        <form action="{% url 'academy:classes' %}" method="POST">
+            {% csrf_token %}
+            {{ form | crispy }}
+            <button type="submit" class="btn btn-success btn-lg">Enroll!</button>
+            <button type="button" id="close" class="btn btn-secondary btn-lg">Close</button>
+        </form>
+    </div>
+{% endblock %}

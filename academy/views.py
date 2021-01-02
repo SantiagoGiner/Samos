@@ -13,6 +13,17 @@ def index(request):
     return render(request, 'academy/index.html')
 
 
+@login_required
+def classes(request):
+    if request.method == 'POST':
+        form = EnrollForm(request.POST)
+        messages.success(request, '''You've enrolled! I will reach out to you with further details''')
+        return HttpResponseRedirect(reverse('academy:classes'))
+    return render(request, 'academy/classes.html', {
+        'form': EnrollForm()
+    })    
+
+
 def login_view(request):
     # Route was reached via POST, as by submitting a form
     if request.method == 'POST':
@@ -46,7 +57,7 @@ def logout_view(request):
 
 def register(request):
     if request.method == 'POST':
-        form = CreateUser(request.POST)
+        form = CreateUserForm(request.POST)
         if form.is_valid():
             # Add the user to the users table
             form.save()
@@ -61,7 +72,7 @@ def register(request):
                          'Verify that you meet all of the requirements in each field!')
         return HttpResponseRedirect(reverse('academy:register'))
     return render(request, 'academy/register.html', {
-        'form': CreateUser()
+        'form': CreateUserForm()
     })
 
 @login_required

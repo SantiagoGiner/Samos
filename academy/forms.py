@@ -2,7 +2,20 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
-class CreateUser(UserCreationForm):
+
+# Modify the Django UserCreationForm so as to include first name, last name, and email
+class CreateUserForm(UserCreationForm):
+    first_name = forms.CharField(max_length=64, help_text='Enter your first name.')
+    last_name = forms.CharField(max_length=64, help_text='Enter your last name.')
+    email = forms.EmailField(max_length=254, help_text='Required. Enter a valid email address.')
+
+
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
+
+
+class EnrollForm(forms.Form):
     SUBJECT_CHOICES = [
         ('ph', 'Physics'),
         ('mt', 'Math'),
@@ -10,7 +23,6 @@ class CreateUser(UserCreationForm):
         ('bi', 'Biology'),
         ('ch', 'Chemistry'),
     ]
-    
     EXAMS_CHOICES = [
         ('sat', 'SAT'),
         ('act', 'ACT'),
@@ -23,9 +35,6 @@ class CreateUser(UserCreationForm):
         ('ap_phys_em', 'AP Physics C: Electricity & Magnetism'),
         ('ap_phys_mech', 'AP Physics C: Mechanics'),
     ]
-    first_name = forms.CharField(max_length=64, help_text='Enter your first name.')
-    last_name = forms.CharField(max_length=64, help_text='Enter your last name.')
-    email = forms.EmailField(max_length=254, help_text='Required. Enter a valid email address.')
     subjects = forms.MultipleChoiceField(
         widget=forms.CheckboxSelectMultiple,
         choices=SUBJECT_CHOICES,
@@ -45,8 +54,3 @@ class CreateUser(UserCreationForm):
         help_text='Any general comments?'
     )
     
-
-    class Meta:
-        model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', 
-                   'subjects', 'exams',)
