@@ -21,7 +21,8 @@
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     {% if user.is_authenticated %}
                         <a class="navbar-brand mx-2" href="{% url 'academy:index' %}">Home</a>
-                        <a class="navbar-brand mx-2" href="{% url 'academy:classes' %}">Classes</a>
+                        <a class="navbar-brand mx-2" href="{% url 'academy:enroll' %}">Enroll</a>
+                        <a class="navbar-brand mx-2" href="{% url 'academy:classes' %}">My classes</a>
                         <a class="navbar-brand mx-2" href="{% url 'academy:schedule' %}">Schedule a meeting</a>
                         <a class="navbar-brand mx-4" href="{% url 'academy:logout' %}">Log out</a>
                     {% else %}

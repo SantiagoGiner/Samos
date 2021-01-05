@@ -1,3 +1,4 @@
+from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
@@ -15,11 +16,24 @@ def index(request):
 
 @login_required
 def classes(request):
+    pass
+
+
+@login_required
+def enroll(request):
     if request.method == 'POST':
         form = EnrollForm(request.POST)
+        send_mail(
+            subject='Samos Academy — Enrolled!',
+            message='You are enrolled!',
+            from_email='santiagoginer@college.harvard.edu',
+            recipient_list=[request.user.email],
+            auth_password='PhysicsMathAstro381654729',
+            fail_silently=False
+        )
         messages.success(request, '''You've enrolled! I will reach out to you with further details''')
-        return HttpResponseRedirect(reverse('academy:classes'))
-    return render(request, 'academy/classes.html', {
+        return HttpResponseRedirect(reverse('academy:enroll'))
+    return render(request, 'academy/enroll.html', {
         'form': EnrollForm()
     })    
 

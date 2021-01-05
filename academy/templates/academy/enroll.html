@@ -8,15 +8,16 @@
             background-image: linear-gradient(45deg, #414f8d, #181f47);
         }
     </style>
-    <script src="{% static 'academy/classes.js' %}"></script>
+    <script src="{% static 'academy/enroll.js' %}"></script>
 {% endblock %}
 
-{% block title %} Classes {% endblock %}
+{% block title %} Enroll {% endblock %}
 
 {% block body %}
     <div id="overview" class="transition">
-        <h1>Samos Academy: Classes</h1>
+        <h1>Samos Academy: Enroll</h1>
         <hr class="transition">
+        <h2>Classes</h2>
         <div class="card-deck">
             <div class="card w-75 mx-3 my-3 p-3" style="width: 18rem; height: 25rem;">
                 <img src="{% static 'academy/physics.jpg' %}" style="height: 45%;" alt="Wonders of Physics">
@@ -93,7 +94,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button class="btn btn-success">Enroll in tutoring!</button>
+                    <button class="btn btn-success" data-dismiss="modal">Enroll in tutoring!</button>
                 </div>
             </div>
         </div>
@@ -122,7 +123,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button class="btn btn-success" >Enroll in tutoring!</button>
+                    <button class="btn btn-success" data-dismiss="modal">Enroll in tutoring!</button>
                 </div>
             </div>
         </div>
@@ -154,7 +155,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button class="btn btn-success" >Enroll in tutoring!</button>
+                    <button class="btn btn-success" data-dismiss="modal">Enroll in tutoring!</button>
                 </div>
             </div>
         </div>
@@ -186,7 +187,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button class="btn btn-success" >Enroll in tutoring!</button>
+                    <button class="btn btn-success" data-dismiss="modal">Enroll in tutoring!</button>
                 </div>
             </div>
         </div>
@@ -194,7 +195,7 @@
     <div id="enroll">
         <hr class="transition">
         <h2>Enroll in Samos Academy</h2>
-        <form action="{% url 'academy:classes' %}" method="POST">
+        <form action="{% url 'academy:enroll' %}" method="POST">
             {% csrf_token %}
             {{ form | crispy }}
             <button type="submit" class="btn btn-success btn-lg">Enroll!</button>

@@ -45,7 +45,7 @@ html, body {
 }
 
 h1 {
-    font-size: 4vw;
+    text-align: center;
 }
 
 hr {
@@ -110,6 +110,10 @@ p {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+#enroll {
+    position: relative;
 }
 
 #introduction {
