@@ -1,19 +1,24 @@
+from django import forms
 from django.db import models
-
-
-# Declare an input class that accepts a date
-class DateInput(forms.DateInput):
-    input_type = 'date'
 
 
 class subjects(models.Model):
     user_id = models.IntegerField()
     subject = models.CharField(max_length=20)
-    # Insert field for files, e.g. pdf's, recordings, etc.
+    # TODO: Insert field for files, e.g. pdf's, recordings, etc.
+    created = models.DateTimeField(auto_now_add=True, auto_now=False)
+
+    # Order the subject by date added
+    class Meta:
+        ordering = ('-created',)
 
 
 class exams(models.Model):
     user_id = models.IntegerField()
     exam = models.CharField(max_length=20)
-    deadline = forms.DateField(help_text='What is the date of the exam?', 
-                                widget=DateInput())
+    deadline = models.DateField()
+    created = models.DateTimeField(auto_now_add=True, auto_now=False)
+
+    # Order the subject by date added
+    class Meta:
+        ordering = ('-created',)

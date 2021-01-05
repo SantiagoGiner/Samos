@@ -3,6 +3,11 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 
+# Declare an input class that accepts a date
+class DateTimeInput(forms.DateInput):
+    input_type = 'date'
+
+
 # Modify the Django UserCreationForm so as to include first name, last name, and email
 class CreateUserForm(UserCreationForm):
     first_name = forms.CharField(max_length=64, help_text='Enter your first name.')
@@ -48,6 +53,7 @@ class EnrollForm(forms.Form):
                     include it in comments below''',
         required=False
     )
+    availability = forms.DateTimeField(widget=DateTimeInput())
     comments = forms.CharField(
         required=False,
         widget=forms.Textarea,

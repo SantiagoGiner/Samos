@@ -1,3 +1,6 @@
+from functools import wraps
+
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
@@ -9,28 +12,34 @@ from django.contrib import messages
 from .forms import *
 
 
+# Decorator that handles exception if an object is not found in the database
+def object_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        try:
+            return f(*args, **kwargs)
+        # If object requested is not found, redirect user and inform them so
+        except ObjectDoesNotExist:
+            messages.warning(args[0], 'Seems like that element requested does not exist. Please try again.')
+            return HttpResponseRedirect(reverse('academy:index'))
+    return decorated_function
+
+
 @login_required
 def index(request):
     return render(request, 'academy/index.html')
 
 
 @login_required
+@object_required
 def classes(request):
-    pass
+    return render(request, 'academy/classes.html')
 
 
 @login_required
 def enroll(request):
     if request.method == 'POST':
         form = EnrollForm(request.POST)
-        send_mail(
-            subject='Samos Academy — Enrolled!',
-            message='You are enrolled!',
-            from_email='santiagoginer@college.harvard.edu',
-            recipient_list=[request.user.email],
-            auth_password='PhysicsMathAstro381654729',
-            fail_silently=False
-        )
         messages.success(request, '''You've enrolled! I will reach out to you with further details''')
         return HttpResponseRedirect(reverse('academy:enroll'))
     return render(request, 'academy/enroll.html', {
