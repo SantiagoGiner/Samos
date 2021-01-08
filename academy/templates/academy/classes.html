@@ -5,4 +5,16 @@
 {% block body %}
     <h1>{{ user.first_name }}'s Classes</h1>
     <hr>
+    {% if subjects %}
+        {% for subject in subjects %}
+            <h2>{{ subject }}</h2>
+        {% endfor %}
+    {% elif not classes and not exams %}
+        <h2 style="text-align: center;">Looks like you haven't enrolled in any classes!</h2>
+    {% endif %}
+    {% if exams %}
+        {% for exam in exams %}
+            <h2>{{ exam }}</h2>
+        {% endfor %}
+    {% endif%}
 {% endblock %}
