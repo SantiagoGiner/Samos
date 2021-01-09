@@ -27,7 +27,6 @@ class EnrollForm(forms.Form):
         ('cs', 'Computer Science'),
         ('bi', 'Biology'),
         ('ch', 'Chemistry'),
-        ('no', 'I am only interested in standardized tests below')
     ]
     EXAMS_CHOICES = [
         ('sat', 'SAT'),
@@ -40,21 +39,26 @@ class EnrollForm(forms.Form):
         ('ap_phys2', 'AP Physics 2'),
         ('ap_phys_em', 'AP Physics C: Electricity & Magnetism'),
         ('ap_phys_mech', 'AP Physics C: Mechanics'),
-        ('no', 'I am only interested in subjects above')
     ]
     subjects = forms.MultipleChoiceField(
+        required=False,
         widget=forms.CheckboxSelectMultiple,
         choices=SUBJECT_CHOICES,
         help_text='''What subject areas are you interested in studying? If interested in 
                     another subject, include it in the comments section below''', 
     )
     exam = forms.ChoiceField(
+        required=False,
         widget=forms.RadioSelect,
         choices=EXAMS_CHOICES,
         help_text='''Are there any exams you want to study for? If planning on taking another exam, 
                     include it in comments below''',
     )
-    test_date = forms.DateTimeField(help_text='What is the date of the exam?', widget=DateTimeInput())
+    test_date = forms.DateTimeField(
+        required=False,
+        help_text='What is the date of the exam?', 
+        widget=DateTimeInput(),
+    )
     '''availability = forms.DateTimeField(
         widget=DateTimeInput(),
         help_text='Days and times at which you are available to attend tutoring sessions'

@@ -13,11 +13,11 @@ from .forms import *
 from .models import *
 
 
-SUBJECT_CHOICES = ['ph', 'mt', 'cs', 'bi', 'ch','no']
+SUBJECT_CHOICES = ['ph', 'mt', 'cs', 'bi', 'ch']
 
 EXAMS_CHOICES = [ 
     'sat', 'act', 'toefl', 'sat_phys', 'sat_math1','sat_math2',
-    'ap_phys1', 'ap_phys2', 'ap_phys_em','ap_phys_mech','no'
+    'ap_phys1', 'ap_phys2', 'ap_phys_em','ap_phys_mech'
 ]
     
 
@@ -55,36 +55,39 @@ def enroll(request):
     if request.method == 'POST':
         form = EnrollForm(request.POST)
         if form.is_valid():
-            new_subjects = form.cleaned_data["subjects"]
+            new_subjects = form.cleaned_data['subjects']
             new_exam = form.cleaned_data['exam']
-            for subject in new_subjects:
-                if Subject.objects.filter(user_id=request.user.pk, subject=subject):
-                    messages.warning(request, f'You have already enrolled in {subject}!')
-                    return HttpResponseRedirect(reverse('academy:enroll'))
-                elif subject not in SUBJECT_CHOICES:
-                    messages.warning(request, 'That is not a valid subject!')
-                    return HttpResponseRedirect(reverse('academy:enroll'))
-                elif subject != 'no':
+            if len(new_subjects) != 0 or new_exam != '':
+                for subject in new_subjects:
+                    if Subject.objects.filter(user_id=request.user.pk, subject=subject):
+                        messages.warning(request, f'You have already enrolled in that class!')
+                        return HttpResponseRedirect(reverse('academy:enroll'))
+                    elif subject not in SUBJECT_CHOICES:
+                        messages.warning(request, 'That is not a valid subject!')
+                        return HttpResponseRedirect(reverse('academy:enroll'))
                     Subject(
                         user_id=request.user.pk,
                         subject=subject,
                         comments=form.cleaned_data['comments']
                     ).save()
-            if Exam.objects.filter(user_id=request.user.pk, exam=new_exam):
-                messages.warning(request, f'You have already enrolled in {new_exam}!')
-                return HttpResponseRedirect(reverse('academy:enroll'))
-            elif new_exam not in EXAMS_CHOICES:
-                messages.warning(request, 'That is not a valid exam!')
-                return HttpResponseRedirect(reverse('academy:enroll'))
-            elif new_exam != 'no':   
+                if Exam.objects.filter(user_id=request.user.pk, exam=new_exam):
+                    messages.warning(request, f'You have already enrolled in that exam!')
+                    return HttpResponseRedirect(reverse('academy:enroll'))
+                elif new_exam not in EXAMS_CHOICES:
+                    messages.warning(request, 'That is not a valid exam!')
+                    return HttpResponseRedirect(reverse('academy:enroll'))
                 Exam(
                     user_id=request.user.pk,
                     exam=new_exam,
                     test_date=form.cleaned_data['test_date'],
                     comments=form.cleaned_data['comments']
                 ).save()
-            messages.success(request, '''You've enrolled! I will reach out to you with further details''')
-            return HttpResponseRedirect(reverse('academy:classes'))
+                messages.success(request, '''You've enrolled! I will reach out to you with further details''')
+                return HttpResponseRedirect(reverse('academy:classes'))
+            else:
+                messages.warning(request, 'Please fill out the form!')
+                return HttpResponseRedirect(reverse('academy:enroll'))
+                
     return render(request, 'academy/enroll.html', {
         'form': EnrollForm()
     })    
