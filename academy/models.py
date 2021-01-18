@@ -50,7 +50,7 @@ class Exam(models.Model):
 
     user_id = models.IntegerField()
     exam = models.CharField(max_length=20)
-    test_date = models.DateField(blank=True)
+    test_date = models.DateField(null=True)
     comments = models.TextField()
 
     created = models.DateTimeField(auto_now_add=True, auto_now=False)

@@ -71,10 +71,10 @@ def enroll(request):
                         comments=form.cleaned_data['comments']
                     ).save()
                 if Exam.objects.filter(user_id=request.user.pk, exam=new_exam):
-                    messages.warning(request, f'You have already enrolled in that exam!')
+                    if new_exam not in EXAMS_CHOICES:
+                        messages.warning(request, 'That is not a valid exam!')
                     return HttpResponseRedirect(reverse('academy:enroll'))
-                elif new_exam not in EXAMS_CHOICES:
-                    messages.warning(request, 'That is not a valid exam!')
+                    messages.warning(request, f'You have already enrolled in that exam!')
                     return HttpResponseRedirect(reverse('academy:enroll'))
                 Exam(
                     user_id=request.user.pk,
