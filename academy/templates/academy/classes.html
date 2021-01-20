@@ -1,20 +1,70 @@
 {% extends 'academy/layout.html' %}
+{% load static %}
 
 {% block title %} My Classes {% endblock %}
+
+{% block head %}
+    <style>
+        p {
+            color: #000000;
+        }
+        div > img {
+            height: 45%;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+    </style>
+{% endblock %}
 
 {% block body %}
     <h1>{{ user.first_name }}'s Classes</h1>
     <hr>
-    {% if subjects %}
-        {% for subject in subjects %}
-            <h2>{{ subject }}</h2>
-        {% endfor %}
-    {% elif not classes and not exams %}
-        <h2 style="text-align: center;">Looks like you haven't enrolled in any classes!</h2>
+    {% if not subjects and not exams %}
+        <h4 class="text-center my-5">
+            Looks like you haven't enrolled in any classes. Enroll <a href="{% url 'academy:enroll' %}">now!</a>
+        </h4>
+    {% else %}
+        <div class="card-deck">
+            {% if subjects %}
+                {% for subject in subjects %}
+                    <div class="col-sm-4">
+                        <div class="card w-75 mx-3 my-4" style="width: 18rem; height: 25rem;">
+                            <div class="card-body">
+                                {% if subject.subject == 'ph' %}
+                                    <img src="{% static 'academy/physics.jpg' %}">
+                                {% elif subject.subject == 'mt' %}
+                                    <img src="{% static 'academy/mathematics.jpg' %}">
+                                {% elif subject.subject == 'ch' %}
+                                    <img src="{% static 'academy/chemistry.jpg' %}">
+                                {% elif subject.subject == 'bi' %}
+                                    <img src="{% static 'academy/biology.jpg' %}">
+                                {% elif subject.subject == 'cs' %}
+                                    <img src="{% static 'academy/programming.jpg' %}">
+                                {% endif %}
+                                <h5 class="card-title" style="color: #000000;">{{ subject }}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Enrolled: {{ subject.date }}</h6>
+                                <p>Classes viewed: {{ subject.viewed }}</p>
+                                <a class="btn btn-primary" href="{% url 'academy:view_class' 'Subject' subject.pk %}">View class</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            {% if exams %}
+                {% for exam in exams %}
+                    <div class="col-sm-4">
+                        <div class="card w-75 mx-3 my-3" style="width: 18rem; height: 25rem;">
+                            <div class="card-body">
+                                <img src="{% static 'academy/tests.jpg' %}" alt="Wonders of Physics">
+                                <h5 class="card-title" style="color: #000000;">{{ exam }}</h5>
+                                <p>Enrolled: {{ exam.date }}</p>
+                                <p>Classes viewed: {{ exam.viewed }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <a class="btn btn-success" href="{% url 'academy:enroll' %}">Enroll in other classes</a>
     {% endif %}
-    {% if exams %}
-        {% for exam in exams %}
-            <h2>{{ exam }}</h2>
-        {% endfor %}
-    {% endif%}
 {% endblock %}

@@ -36,7 +36,17 @@ def object_required(f):
 
 @login_required
 def index(request):
-    return render(request, 'academy/index.html')
+    if Subject.objects.filter(user_id=request.user.pk) or Exam.objects.filter(user_id=request.user.pk):
+        return HttpResponseRedirect(reverse('academy:classes'))
+    return render(request, 'academy/about.html', {
+        'message': '''**Looks like you haven't enrolled in any classes. Enroll '''
+    })
+
+
+@login_required
+@object_required
+def about(request):
+    return render(request, 'academy/about.html')
 
 
 @login_required
@@ -68,25 +78,25 @@ def enroll(request):
                     Subject(
                         user_id=request.user.pk,
                         subject=subject,
-                        comments=form.cleaned_data['comments']
+                        comments=form.cleaned_data['comments'],
                     ).save()
                 if Exam.objects.filter(user_id=request.user.pk, exam=new_exam):
-                    if new_exam not in EXAMS_CHOICES:
-                        messages.warning(request, 'That is not a valid exam!')
-                    return HttpResponseRedirect(reverse('academy:enroll'))
                     messages.warning(request, f'You have already enrolled in that exam!')
                     return HttpResponseRedirect(reverse('academy:enroll'))
-                Exam(
-                    user_id=request.user.pk,
-                    exam=new_exam,
-                    test_date=form.cleaned_data['test_date'],
-                    comments=form.cleaned_data['comments']
-                ).save()
+                if new_exam != '':
+                    if new_exam not in EXAMS_CHOICES:
+                        messages.warning(request, 'That is not a valid exam!')
+                        return HttpResponseRedirect(reverse('academy:enroll'))
+                    Exam(
+                        user_id=request.user.pk,
+                        exam=new_exam,
+                        test_date=form.cleaned_data['test_date'],
+                        comments=form.cleaned_data['comments']
+                    ).save()
                 messages.success(request, '''You've enrolled! I will reach out to you with further details''')
                 return HttpResponseRedirect(reverse('academy:classes'))
-            else:
-                messages.warning(request, 'Please fill out the form!')
-                return HttpResponseRedirect(reverse('academy:enroll'))
+            messages.warning(request, 'Please fill out the form!')
+            return HttpResponseRedirect(reverse('academy:enroll'))
                 
     return render(request, 'academy/enroll.html', {
         'form': EnrollForm()
@@ -124,6 +134,12 @@ def logout_view(request):
     return HttpResponseRedirect(reverse('academy:login'))
 
 
+@login_required
+@object_required
+def profile(request):
+    return render(request, 'academy/profile.html')
+
+
 def register(request):
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
@@ -147,3 +163,16 @@ def register(request):
 @login_required
 def schedule(request):
     return render(request, 'academy/schedule.html')
+
+
+@login_required
+@object_required
+def view_class(request, class_type, class_id):
+    if class_type == 'Subject':
+        return render(request, 'academy/view_class.html', {
+            'class': Subject.objects.get(pk=class_id)
+        })
+    return render(request, 'academy/view_class.html', {
+            'class': Exam.objects.get(pk=class_id)
+        })
+    

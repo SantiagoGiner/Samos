@@ -13,7 +13,11 @@ class Subject(models.Model):
 
     user_id = models.IntegerField()
     subject = models.CharField(max_length=20, choices=SUBJECT_CHOICES)
+    date = models.DateField(auto_now_add=True)
+    viewed = models.IntegerField(null=True, default=0)
     comments = models.TextField()
+    other_info = models.TextField()
+
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
 
     # Order the subject by date added
@@ -24,7 +28,7 @@ class Subject(models.Model):
         if self.subject == 'ph':
             return 'Physics'
         elif self.subject == 'mt':
-            return 'Math'
+            return 'Mathematics'
         elif self.subject == 'cs':
             return 'Computer Science'
         elif self.subject == 'bi':
@@ -50,8 +54,11 @@ class Exam(models.Model):
 
     user_id = models.IntegerField()
     exam = models.CharField(max_length=20)
+    date = models.DateField(auto_now_add=True)
+    viewed = models.IntegerField(null=True, default=0)
     test_date = models.DateField(null=True)
     comments = models.TextField()
+    other_info = models.TextField()
 
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
 

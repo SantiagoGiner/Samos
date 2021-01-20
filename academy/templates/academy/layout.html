@@ -25,16 +25,17 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     {% if user.is_authenticated %}
-                        <a class="navbar-brand mx-2" href="{% url 'academy:index' %}">&#10068;About</a>
+                        <a class="navbar-brand mx-2" href="{% url 'academy:about' %}">&#10068;About</a>
                         <a class="navbar-brand mx-2" href="{% url 'academy:enroll' %}">&#127941;Enroll</a>
                         <a class="navbar-brand mx-2" href="{% url 'academy:classes' %}">&#128218;My classes</a>
-                        <a class="navbar-brand mx-2" href="{% url 'academy:schedule' %}">&#128197;Schedule a meeting</a>
-                        <a class="navbar-brand mx-4" href="{% url 'academy:logout' %}">Log out</a>
+                        <a class="navbar-brand mx-2" href="{% url 'academy:profile' %}">&#128100;My profile</a>
+                        <a class="navbar-brand ml-2 mr-5" href="{% url 'academy:schedule' %}">&#128197;Schedule a meeting</a>
+                        <a class="navbar-brand ml-5" href="{% url 'academy:logout' %}">Log out</a>
                     {% else %}
                         <a class="navbar-brand mx-2" href="{% url 'academy:register' %}">Create an Account</a>
                         <a class="navbar-brand mx-2" href="{% url 'academy:login' %}">Log in</a>
                     {% endif %}
-                        <a class="navbar-brand mx-4" href="{% static 'academy/resume.pdf' %}">View Santiago's CV</a>
+                        <a class="navbar-brand ml-2" href="{% static 'academy/resume.pdf' %}">View Santiago's CV</a>
                 </div>
             </nav>
             {% if messages %}

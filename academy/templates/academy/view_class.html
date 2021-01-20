@@ -1,0 +1,9 @@
+{% extends 'academy/layout.html' %}
+
+{% block title %} View class {% endblock %}
+
+{% block body %}
+    {{ class }}
+    <br>
+    <a href="{% url 'academy:classes' %}">Back to projects page</a>
+{% endblock %}
