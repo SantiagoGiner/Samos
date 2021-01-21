@@ -1,7 +1,23 @@
 {% extends 'academy/layout.html' %}
+{% load crispy_forms_tags %}
 
 {% block title %} My profile {% endblock %}
 
 {% block body %}
-    <h2>Create your profile!</h2>
+    {% if form %}
+        <h1 class>Create your profile!</h1>
+        <hr>
+        <p>
+            This is your opportunity to express who you are, your interests, your goals, what you hope to do later in
+            life. It's perfectly fine if you do not know what you want to dedicate yourself to (I sure know it took
+            me a while to decide). Just be open and remember that this is for me to be able to know you better.
+        </p>
+        <form action="{% url 'academy:profile' %}" enctype="multipart/form-data" method="POST">
+            {% csrf_token %}
+            {{ form | crispy }}
+            <button class="btn btn-success" type="submit">Create profile</button>
+        </form>
+    {% elif profile %}
+        <img src="{{ profile.photo }}">
+    {% endif %}
 {% endblock %}

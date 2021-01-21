@@ -1,5 +1,6 @@
 from django import forms
 from django.db import models
+from django_countries.fields import CountryField
 
 
 class Subject(models.Model):
@@ -84,3 +85,11 @@ class Exam(models.Model):
             return 'AP Physics C: Mechanics'
         else:
             return self.exam
+
+
+class Profile(models.Model):
+    user_id = models.IntegerField()
+    country = CountryField()
+    city = models.CharField(max_length=64)
+    bio = models.TextField()
+    photo = models.ImageField(null=True, upload_to='media/profiles/')

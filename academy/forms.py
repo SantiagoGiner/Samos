@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django_countries.fields import CountryField
 
 
 # Declare an input class that accepts a date
@@ -69,4 +70,17 @@ class EnrollForm(forms.Form):
         help_text='''Any general comments (e.g. what specific 
                      topics are you interested in for the subjects chosen above)?'''
     )
-    
+
+
+class ProfileForm(forms.Form):
+    country = CountryField().formfield(
+        help_text='What is your country of origin?',
+        blank_label='Select country'
+    )
+    city = forms.CharField(max_length=64, help_text='What is your city of origin?')
+    bio = forms.CharField(
+        widget=forms.Textarea,
+        help_text='''Tell us about yourself. Provide a brief description of interests, hobbies, goals, 
+                      or anything else you may want to add.'''
+    )
+    photo = forms.ImageField(required=False, help_text='If you want to, submit a photo of yourself.')

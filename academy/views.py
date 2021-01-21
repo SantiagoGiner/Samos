@@ -135,9 +135,27 @@ def logout_view(request):
 
 
 @login_required
-@object_required
 def profile(request):
-    return render(request, 'academy/profile.html')
+    if request.method == 'POST':
+        form = ProfileForm(request.POST)
+        if form.is_valid():
+            Profile(
+                user_id=request.user.pk,
+                country=form.cleaned_data['country'],
+                city=form.cleaned_data['city'],
+                bio=form.cleaned_data['bio'],
+                photo=request.FILES['photo'],
+            ).save()
+            messages.success(request, 'You have successfully created your profile')
+            return HttpResponseRedirect(reverse('academy:profile'))
+    try:
+        return render(request, 'academy/profile.html', {
+        'profile': Profile.objects.get(user_id=request.user.pk)
+    })
+    except ObjectDoesNotExist:
+        return render(request, 'academy/profile.html', {
+            'form': ProfileForm()
+        })
 
 
 def register(request):
