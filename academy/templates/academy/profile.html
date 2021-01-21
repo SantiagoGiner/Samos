@@ -18,6 +18,15 @@
             <button class="btn btn-success" type="submit">Create profile</button>
         </form>
     {% elif profile %}
-        <img src="{{ profile.photo }}">
+        <h1>{{ user.first_name }}'s Profile</h1>
+        <hr>
+        <div style="width: 30%">
+            <img id="profile_photo" src="{{ profile.photo.url }}" alt="Your profile photo">
+        </div>
+        <p>{{ profile.bio }}</p>
+        <form action="{% url 'academy:change_profile' profile.pk 'delete' %}" method="POST">
+            {% csrf_token %}
+            <button class="btn btn-danger my-5" type="submit">Delete profile</button>
+        </form>
     {% endif %}
 {% endblock %}

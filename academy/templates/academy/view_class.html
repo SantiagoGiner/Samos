@@ -3,7 +3,6 @@
 {% block title %} View class {% endblock %}
 
 {% block body %}
-    {{ class }}
-    <br>
-    <a href="{% url 'academy:classes' %}">Back to projects page</a>
+    <p>{{ class }}</p>
+    <a href="{% url 'academy:classes' %}" style="margin-top: 20px;">Back to projects page</a>
 {% endblock %}

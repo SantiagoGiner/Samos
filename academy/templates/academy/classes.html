@@ -41,7 +41,7 @@
                                 {% elif subject.subject == 'cs' %}
                                     <img src="{% static 'academy/programming.jpg' %}">
                                 {% endif %}
-                                <h5 class="card-title" style="color: #000000;">{{ subject }}</h5>
+                                <h5 class="card-title">{{ subject }}</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">Enrolled: {{ subject.date }}</h6>
                                 <p>Classes viewed: {{ subject.viewed }}</p>
                                 <a class="btn btn-primary" href="{% url 'academy:view_class' 'Subject' subject.pk %}">View class</a>
@@ -57,14 +57,16 @@
                             <div class="card-body">
                                 <img src="{% static 'academy/tests.jpg' %}" alt="Wonders of Physics">
                                 <h5 class="card-title" style="color: #000000;">{{ exam }}</h5>
-                                <p>Enrolled: {{ exam.date }}</p>
+                                <h6 class="card-subtitle mb-2 text-muted">Enrolled: {{ exam.date }}</h6>
+                                <p>Test date: {{ exam.test_date }}</p>
                                 <p>Classes viewed: {{ exam.viewed }}</p>
+                                <a class="btn btn-primary" href="{% url 'academy:view_class' 'Exam' exam.pk %}">View class</a>
                             </div>
                         </div>
                     </div>
                 {% endfor %}
             {% endif %}
         </div>
-        <a class="btn btn-success" href="{% url 'academy:enroll' %}">Enroll in other classes</a>
+        <a class="btn btn-success my-5" href="{% url 'academy:enroll' %}">Enroll in other classes</a>
     {% endif %}
 {% endblock %}

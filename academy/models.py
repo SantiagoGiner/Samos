@@ -1,6 +1,7 @@
 from django import forms
 from django.db import models
 from django_countries.fields import CountryField
+from django.contrib.auth.models import User
 
 
 class Subject(models.Model):
@@ -92,4 +93,4 @@ class Profile(models.Model):
     country = CountryField()
     city = models.CharField(max_length=64)
     bio = models.TextField()
-    photo = models.ImageField(null=True, upload_to='media/profiles/')
+    photo = models.ImageField(null=True, upload_to='profiles/')

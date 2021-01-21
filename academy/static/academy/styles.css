@@ -1,3 +1,4 @@
+/* Animations */
 @keyframes fadein {
     from {
         opacity: 0%;
@@ -29,7 +30,7 @@
 }
 
 
-
+/* Elements by HTML tag */
 a {
     color: #00ff00;
 }
@@ -46,6 +47,10 @@ html, body {
 
 h1 {
     text-align: center;
+}
+
+h5 {
+    color: #000000;
 }
 
 hr {
@@ -67,7 +72,7 @@ p {
 }
 
 
-
+/* Elements by class */
 .alert {
     border-radius: 1% !important;
     animation-name: fadeout;
@@ -99,6 +104,20 @@ p {
     margin-bottom: 30px;
 }
 
+.modal-paragraph {
+    color: #000000;
+    font-size: 1.2vw;
+    text-align: center;
+    line-height: 1.4;
+}
+
+.modal-li {
+    color: #000000;
+    font-size: 1.2vw;
+    text-align: left;
+    line-height: 1.4;
+}
+
 .requiredField {
     font-size: 21px;
     margin-bottom: 5px;
@@ -106,7 +125,7 @@ p {
 }
 
 
-
+/* Elements by id */
 #center_flex {
     display: flex;
     align-items: center;
@@ -139,6 +158,14 @@ p {
     height: 300px;
     width: 250px;
     margin-right: 15px;
+}
+
+#profile_photo {
+    border-radius: 30%;
+    border-color: #ffffffe7;
+    border-style: solid;
+    width: 100%;
+    height: auto;
 }
 
 #samos-description {

@@ -7,10 +7,6 @@
         html, body {
             background-image: linear-gradient(45deg, #414f8d, #181f47);
         }
-        p {
-            color: #000000;
-            font-size: 1.3vw;
-        }
     </style>
     <script src="{% static 'academy/enroll.js' %}"></script>
 {% endblock %}
@@ -26,7 +22,7 @@
             <div class="card w-75 mx-3 my-3 p-3" style="width: 18rem; height: 25rem;">
                 <img src="{% static 'academy/physics.jpg' %}" style="height: 45%;" alt="Wonders of Physics">
                 <div class="card-body">
-                    <h5 class="card-title" style="color: #000000;">Physics</h5>
+                    <h5 class="card-title" >Physics</h5>
                     <h6 class="card-subtitle mb-2 text-muted">From Classical Mechanics to Electromagnetism</h6>
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-success mt-2" data-toggle="modal" data-target="#physicsModal">
@@ -37,7 +33,7 @@
             <div class="card w-75 mx-3 my-3 p-3" style="width: 18rem; height: 25rem;">
                 <img src="{% static 'academy/mathematics.jpg' %}" style="height: 45%;" alt="Wonders of Math">
                 <div class="card-body">
-                    <h5 class="card-title" style="color: #000000;">Mathematics</h5>
+                    <h5 class="card-title" >Mathematics</h5>
                     <h6 class="card-subtitle mb-2 text-muted">
                         From algebra, trigonometry, and pre-calc to multivariable calculus and more
                     </h6>
@@ -50,7 +46,7 @@
             <div class="card w-75 mx-3 my-3 p-3" style="width: 18rem; height: 25rem;">
                 <img src="{% static 'academy/tests.jpg' %}" style="height: 45%;" alt="Answer Sheet on Test">
                 <div class="card-body">
-                    <h5 class="card-title" style="color: #000000;">Standardized Tests</h5>
+                    <h5 class="card-title" >Standardized Tests</h5>
                     <h6 class="card-subtitle mb-2 text-muted">SAT, SAT Subject Tests, TOEFL, and more...</h6>
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-success mt-2" data-toggle="modal" data-target="#testsModal">
@@ -61,7 +57,7 @@
             <div class="card w-75 mx-3 my-3 p-3" style="width: 18rem; height: 25rem;">
                 <img src="{% static 'academy/programming.jpg' %}" style="height: 40%;" alt="Programming languages">
                 <div class="card-body">
-                    <h5 class="card-title" style="color: #000000;">Programming</h5>
+                    <h5 class="card-title" >Programming</h5>
                     <h6 class="card-subtitle mb-2 text-muted">Python, C, JavaScript, and web development</h6>
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-success mt-2" data-toggle="modal" data-target="#programmingModal">
@@ -76,14 +72,14 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel" style="color: #000000;">Physics</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Physics</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
                 <div class="modal-body">
                     <img class="container my-4" src="{% static 'academy/physics.jpg' %}" style="height: 45%; width: 100%;" alt="Wonders of Physics">
-                    <p style="color: #000000; font-size: 1.3vw;">
+                    <p class="modal-paragraph">
                         You might not realize it, but physics and its achievements are all around you.
                         For me, physics is one of the greatest achievements of humanity, which allows
                         us to explain everything we see around us, from the behavior of subnuclear
@@ -108,14 +104,14 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel" style="color: #000000;">Mathematics</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Mathematics</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
                 <div class="modal-body">
                     <img class="container my-4" src="{% static 'academy/mathematics.jpg' %}" style="height: 45%; width: 100%;" alt="Wonders of Math">
-                    <p style="color: #000000; font-size: 1.3vw;">
+                    <p class="modal-paragraph">
                         Mathematics is the basis of most everything that is done in modern science. It is the backbone
                         of our understanding of the universe and it offers us a beautifully elegant framework upon
                         which we can model real-world phenomena and make accurate predictions about them. Math is
@@ -137,14 +133,14 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel" style="color: #000000;">Standardized Tests</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Standardized Tests</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
                 <div class="modal-body">
                     <img class="container my-4" src="{% static 'academy/tests.jpg' %}" style="height: 45%; width: 100%;" alt="Answer Sheet on Test">
-                    <p style="color: #000000; font-size: 1.3vw;">
+                    <p class="modal-paragraph">
                         I know exactly what you are going through--standardized tests for college applications are extremely
                         stressful. I went through exactly the same issues as you might very likely be facing: not knowing
                         where to start with all the material available for the tests, feeling anxious that you might not
@@ -174,46 +170,55 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel" style="color: #000000;">Programming and Computer Science</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Programming and Computer Science</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
                 <div class="modal-body">
                     <img class="container my-4" src="{% static 'academy/programming.jpg' %}" style="height: 45%; width: 100%;" alt="Programming Languages">
-                    <p>
+                    <p class="modal-paragraph">
                         Programming is one of the most useful abilities a beginning college student can learn. Not only will it
                         let you stand out in college and later job applications, but it will also make you think in a completely
                         different way than ordinary human thought. And once you are able to think more algorithmically and
                         programmatically, the effects ripple towards all areas of your life, providing you with a skillset to
                         face challenges that come your way. I can teach you how to program in:
                     </p>
-                    <ul style="color: #000000;">
+                    <ul>
                         <li>
-                            <h5>Python: </h5>Without a doubt the most common and also useful language for someone looking
-                            to pursue a career in data science, scientific research, web programming, and software
-                            development (e.g. UI/UX design).
+                            <h5>Python: </h5>
+                            <p class="modal-li">
+                                Without a doubt the most common and also useful language for someone looking
+                                to pursue a career in data science, scientific research, web programming, and software
+                                development (e.g. UI/UX design).
+                            </p>
                         </li>
                         <br>
                         <li>
-                            <h5>C: </h5>A more robust programming language that teaches you about the inner workings
-                            of a computer, providing a deeper understanding of computation, memory management,
-                            data structures, and algorithms. It can be a harder language to learn at first but
-                            it proves very useful not only in learning about computers but also has applications
-                            in the world of engineering, specifically electrical and mechanical engineering, where
-                            C is very commonly used.
+                            <h5>C: </h5>
+                            <p class="modal-li">
+                                A more robust programming language that teaches you about the inner workings
+                                of a computer, providing a deeper understanding of computation, memory management,
+                                data structures, and algorithms. It can be a harder language to learn at first but
+                                it proves very useful not only in learning about computers but also has applications
+                                in the world of engineering, specifically electrical and mechanical engineering, where
+                                C is very commonly used.
+                            </p>
                         </li>
                         <br>
                         <li>
-                            <h5>JavaScript: </h5>An essential programming language for the develpoment of interactive,
-                            responsive, and dynamic websites and web applications. Along with a backend framework (such
-                            as flask and django) which rely on Python, and the frontend framework provided by JavaScript,
-                            your web apps will be as smooth and elegant as ever! JavaScript is also a modern language with
-                            similar abilities to Python and similar syntax to C.                     
+                            <h5>JavaScript: </h5>
+                            <p class="modal-li">
+                                An essential programming language for the develpoment of interactive,
+                                responsive, and dynamic websites and web applications. Along with a backend framework (such
+                                as flask and django) which rely on Python, and the frontend framework provided by JavaScript,
+                                your web apps will be as smooth and elegant as ever! JavaScript is also a modern language with
+                                similar abilities to Python and similar syntax to C.          
+                            </p>
                         </li>
                     </ul>
                     <br>
-                    <p>
+                    <p class="modal-paragraph">
                         Once you have learned one of these languages, you will have the necessary toolset and abilities to carry on
                         learning other languages and diversifying your CS (computer science) and programming experience.
                     </p>

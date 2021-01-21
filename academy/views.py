@@ -51,6 +51,15 @@ def about(request):
 
 @login_required
 @object_required
+def change_profile(request, profile_id, action):
+    if action == 'delete':
+        Profile.objects.get(pk=profile_id).delete()
+        messages.success(request, 'You have deleted your profile.')
+    return HttpResponseRedirect(reverse('academy:profile'))
+
+
+@login_required
+@object_required
 def classes(request):
     subjects = Subject.objects.filter(user_id=request.user.pk)
     exams = Exam.objects.filter(user_id=request.user.pk)
@@ -70,10 +79,10 @@ def enroll(request):
             if len(new_subjects) != 0 or new_exam != '':
                 for subject in new_subjects:
                     if Subject.objects.filter(user_id=request.user.pk, subject=subject):
-                        messages.warning(request, f'You have already enrolled in that class!')
+                        messages.warning(request, f'You have already enrolled in that class.')
                         return HttpResponseRedirect(reverse('academy:enroll'))
                     elif subject not in SUBJECT_CHOICES:
-                        messages.warning(request, 'That is not a valid subject!')
+                        messages.warning(request, 'That is not a valid subject.')
                         return HttpResponseRedirect(reverse('academy:enroll'))
                     Subject(
                         user_id=request.user.pk,
@@ -81,11 +90,11 @@ def enroll(request):
                         comments=form.cleaned_data['comments'],
                     ).save()
                 if Exam.objects.filter(user_id=request.user.pk, exam=new_exam):
-                    messages.warning(request, f'You have already enrolled in that exam!')
+                    messages.warning(request, f'You have already enrolled in that exam.')
                     return HttpResponseRedirect(reverse('academy:enroll'))
                 if new_exam != '':
                     if new_exam not in EXAMS_CHOICES:
-                        messages.warning(request, 'That is not a valid exam!')
+                        messages.warning(request, 'That is not a valid exam.')
                         return HttpResponseRedirect(reverse('academy:enroll'))
                     Exam(
                         user_id=request.user.pk,
@@ -93,9 +102,9 @@ def enroll(request):
                         test_date=form.cleaned_data['test_date'],
                         comments=form.cleaned_data['comments']
                     ).save()
-                messages.success(request, '''You've enrolled! I will reach out to you with further details''')
+                messages.success(request, '''You've enrolled! I will reach out to you with further details.''')
                 return HttpResponseRedirect(reverse('academy:classes'))
-            messages.warning(request, 'Please fill out the form!')
+            messages.warning(request, 'Please fill out the form.')
             return HttpResponseRedirect(reverse('academy:enroll'))
                 
     return render(request, 'academy/enroll.html', {
@@ -117,7 +126,7 @@ def login_view(request):
             return HttpResponseRedirect(reverse('academy:index'))
         # Else, redirect them to the login page again, informing them of the error
         else:
-            messages.warning(request, 'Invalid credentials')
+            messages.warning(request, 'Invalid credentials, please try again.')
             return render(request, 'academy/login.html', {
                 'form': AuthenticationForm()
             })
@@ -146,7 +155,7 @@ def profile(request):
                 bio=form.cleaned_data['bio'],
                 photo=request.FILES['photo'],
             ).save()
-            messages.success(request, 'You have successfully created your profile')
+            messages.success(request, 'You have successfully created your profile!')
             return HttpResponseRedirect(reverse('academy:profile'))
     try:
         return render(request, 'academy/profile.html', {
@@ -169,10 +178,10 @@ def register(request):
             # Log the user in
             new_user = authenticate(request, username=username, password=password)
             login(request, new_user)
-            messages.success(request, 'Registered!')
+            messages.success(request, 'You have successfully registered!')
             return HttpResponseRedirect(reverse('academy:index'))
         messages.warning(request, 
-                         'Verify that you meet all of the requirements in each field!')
+                         'Verify that you meet all of the requirements in each field.')
         return HttpResponseRedirect(reverse('academy:register'))
     return render(request, 'academy/register.html', {
         'form': CreateUserForm()
