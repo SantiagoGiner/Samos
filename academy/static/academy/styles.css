@@ -80,6 +80,15 @@ p {
     animation-fill-mode: forwards;
 }
 
+.card.w-75.mx-3.my-3.p-3 {
+    width: 18rem;
+    height: 25rem;
+}
+
+.card-img-top {
+    height: 45%;
+}
+
 .form-group {
     margin-top: 40px;
     margin-bottom: 40px;
@@ -102,6 +111,14 @@ p {
     width: 290px;
     margin-top: 50px;
     margin-bottom: 30px;
+}
+
+.jumbotron {
+    color: #000000;
+}
+
+.jumbotron > hr {
+    background-color: #858585;
 }
 
 .modal-paragraph {

@@ -1,8 +1,21 @@
 {% extends 'academy/layout.html' %}
 
-{% block title %} View class {% endblock %}
+
+{% block title %} {{ class }} {% endblock %}
 
 {% block body %}
-    <p>{{ class }}</p>
-    <a href="{% url 'academy:classes' %}" style="margin-top: 20px;">Back to projects page</a>
+    <!-- <h1>{{ user.first_name }}: {{ class }}</h1>
+    <hr>
+    <h4>Enrolled: {{ class.date }}</h5>
+    <h4>Classes viewed: {{ class.viewed }}</h5> -->
+    <div class="jumbotron">
+        <h1 class="display-4">{{ user.first_name }}: {{ class }}</h1>
+        <hr>
+        <p class="lead">Enrolled: {{ class.date }}</p>
+        <p class="lead">Classes viewed: {{ class.viewed }}</p>
+    </div>
+    <div class="class-description">
+        <p>Hello, world!</p>
+    </div>
+    <a class="btn btn-success my-5" href="{% url 'academy:classes' %}">Back to my classes</a>
 {% endblock %}
