@@ -13,7 +13,7 @@ from .forms import *
 from .models import *
 
 
-SUBJECT_CHOICES = ['ph', 'mt', 'cs', 'bi', 'ch']
+SUBJECT_CHOICES = ['ph', 'mt', 'cs', 'bi']
 
 EXAMS_CHOICES = [ 
     'sat', 'act', 'toefl', 'sat_phys', 'sat_math1','sat_math2',

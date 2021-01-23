@@ -121,6 +121,10 @@ p {
     background-color: #858585;
 }
 
+.lead {
+    text-align: center;
+}
+
 .modal-paragraph {
     color: #000000;
     font-size: 1.2vw;

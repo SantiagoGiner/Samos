@@ -27,7 +27,6 @@ class EnrollForm(forms.Form):
         ('mt', 'Math'),
         ('cs', 'Computer Science'),
         ('bi', 'Biology'),
-        ('ch', 'Chemistry'),
     ]
     EXAMS_CHOICES = [
         ('sat', 'SAT'),

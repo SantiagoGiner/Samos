@@ -10,7 +10,7 @@
         <p>
             This is your opportunity to express who you are, your interests, your goals, what you hope to do later in
             life. It's perfectly fine if you do not know what you want to dedicate yourself to (I sure know it took
-            me a while to decide). Just be open and remember that this is for me to be able to know you better.
+            me a while to decide). Just be open; this is a way for me to get to know you.
         </p>
         <form action="{% url 'academy:profile' %}" enctype="multipart/form-data" method="POST">
             {% csrf_token %}
@@ -20,11 +20,11 @@
     {% elif profile %}
         <h1>{{ user.first_name }}'s Profile</h1>
         <hr>
-        <div id="profile">
-            <div style="width: 30%">
+        <div id="profile" class="container justify-content-center">
+            <div style="width: 30%;">
                 <img id="profile_photo" src="{{ profile.photo.url }}" alt="Your profile photo">
             </div>
-            <p>{{ profile.bio }}</p>
+            <p class="text-justify mx-4 mt-2">{{ profile.bio }}</p>
         </div>
         <form action="{% url 'academy:change_profile' profile.pk 'delete' %}" method="POST">
             {% csrf_token %}

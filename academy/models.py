@@ -10,13 +10,13 @@ class Subject(models.Model):
         ('mt', 'Math'),
         ('cs', 'Computer Science'),
         ('bi', 'Biology'),
-        ('ch', 'Chemistry'),
     ]
 
     user_id = models.IntegerField()
     subject = models.CharField(max_length=20, choices=SUBJECT_CHOICES)
     date = models.DateField(auto_now_add=True)
     viewed = models.IntegerField(null=True, default=0)
+    files = models.FileField(upload_to='documents/class_files')
     comments = models.TextField()
     other_info = models.TextField()
 
@@ -59,6 +59,7 @@ class Exam(models.Model):
     date = models.DateField(auto_now_add=True)
     viewed = models.IntegerField(null=True, default=0)
     test_date = models.DateField(null=True)
+    files = models.FileField(upload_to='documents/class_files')
     comments = models.TextField()
     other_info = models.TextField()
 

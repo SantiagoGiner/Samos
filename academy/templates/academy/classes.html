@@ -21,7 +21,7 @@
     <hr>
     {% if not subjects and not exams %}
         <h4 class="text-center my-5">
-            Looks like you haven't enrolled in any classes. Enroll <a href="{% url 'academy:enroll' %}">now!</a>
+            Looks like you haven't enrolled in any classes. <a href="{% url 'academy:enroll' %}">Enroll now!</a>
         </h4>
     {% else %}
         <div class="card-columns">
