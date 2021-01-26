@@ -195,11 +195,20 @@ def schedule(request):
 @login_required
 @object_required
 def view_class(request, class_type, class_id):
+    if request.method == 'POST':
+        if class_type == 'Subject':
+            Subject.objects.get(pk=class_id).delete()
+        else:
+            Exam.objects.get(pk=class_id).delete()
+        return HttpResponseRedirect(reverse('academy:classes'))
+
     if class_type == 'Subject':
         return render(request, 'academy/view_class.html', {
-            'class': Subject.objects.get(pk=class_id)
+            'class': Subject.objects.get(pk=class_id),
+            'class_type': 'Subject'
         })
     return render(request, 'academy/view_class.html', {
-            'class': Exam.objects.get(pk=class_id)
+            'class': Exam.objects.get(pk=class_id),
+            'class_type': 'Exam'
         })
     

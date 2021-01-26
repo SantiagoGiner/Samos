@@ -4,12 +4,8 @@
 {% block title %} {{ class }} {% endblock %}
 
 {% block body %}
-    <!-- <h1>{{ user.first_name }}: {{ class }}</h1>
-    <hr>
-    <h4>Enrolled: {{ class.date }}</h5>
-    <h4>Classes viewed: {{ class.viewed }}</h5> -->
     <div class="jumbotron">
-        <h1 class="display-4">{{ user.first_name }}: {{ class }}</h1>
+        <h1 class="display-4">{{ class }}</h1>
         <hr>
         <p class="lead">Enrolled: {{ class.date }}</p>
         <p class="lead">Classes viewed: {{ class.viewed }}</p>
@@ -24,4 +20,34 @@
         {% endif %}
     </div>
     <a class="btn btn-success my-5" href="{% url 'academy:classes' %}">Back to my classes</a>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-danger my-2" data-toggle="modal" data-target="#dropClassModal">
+        Drop class
+    </button>
+    <!-- Drop Class Modal -->
+    <div class="modal fade" id="dropClassModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to drop {{ class }}?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <p class="modal-paragraph">
+                        If you do, you will have to enroll again through the Enroll page should you wish to take the class again.                          
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <form action="{% url 'academy:drop_class' class_type class.pk %}" method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn-danger" type="submit">Yes, drop class</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 {% endblock %}
