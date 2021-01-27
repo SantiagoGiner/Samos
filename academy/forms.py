@@ -32,9 +32,7 @@ class EnrollForm(forms.Form):
         ('sat', 'SAT'),
         ('act', 'ACT'),
         ('toefl', 'TOEFL'),
-        ('sat_phys', 'SAT Subject Test: Physics'),
-        ('sat_math1', 'SAT Subject Test: Math Level 1'),
-        ('sat_math2', 'SAT Subject Test: Math Level 2'),
+        ('ielts', 'IELTS'),
         ('ap_phys1', 'AP Physics 1'),
         ('ap_phys2', 'AP Physics 2'),
         ('ap_phys_em', 'AP Physics C: Electricity & Magnetism'),
@@ -45,14 +43,14 @@ class EnrollForm(forms.Form):
         widget=forms.CheckboxSelectMultiple,
         choices=SUBJECT_CHOICES,
         help_text='''What subject areas are you interested in studying? If interested in 
-                    another subject, include it in the comments section below''', 
+                    another subject, include it in the comments section below.''', 
     )
     exam = forms.ChoiceField(
         required=False,
         widget=forms.RadioSelect,
         choices=EXAMS_CHOICES,
         help_text='''Are there any exams you want to study for? If planning on taking another exam, 
-                    include it in comments below''',
+                    include it in comments below.''',
     )
     test_date = forms.DateTimeField(
         required=False,

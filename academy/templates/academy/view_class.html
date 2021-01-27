@@ -9,6 +9,9 @@
         <hr>
         <p class="lead">Enrolled: {{ class.date }}</p>
         <p class="lead">Classes viewed: {{ class.viewed }}</p>
+        {% if class.link %}
+            <p class="lead">Class location:  <a class="btn btn-primary" href="{{ class.link }}">Join Zoom Meeting</a></p>    
+        {% endif %}
     </div>
     <div class="class-description">
         <h2>Class Files</h2>

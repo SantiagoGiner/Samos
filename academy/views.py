@@ -16,8 +16,8 @@ from .models import *
 SUBJECT_CHOICES = ['ph', 'mt', 'cs', 'bi']
 
 EXAMS_CHOICES = [ 
-    'sat', 'act', 'toefl', 'sat_phys', 'sat_math1','sat_math2',
-    'ap_phys1', 'ap_phys2', 'ap_phys_em','ap_phys_mech'
+    'sat', 'act', 'toefl', 'ielts','ap_phys1', 
+    'ap_phys2', 'ap_phys_em','ap_phys_mech'
 ]
     
 
@@ -79,7 +79,7 @@ def enroll(request):
             if len(new_subjects) != 0 or new_exam != '':
                 for subject in new_subjects:
                     if Subject.objects.filter(user_id=request.user.pk, subject=subject):
-                        messages.warning(request, f'You have already enrolled in that class.')
+                        messages.warning(request, 'You have already enrolled in all or some of the subjects chosen.')
                         return HttpResponseRedirect(reverse('academy:enroll'))
                     elif subject not in SUBJECT_CHOICES:
                         messages.warning(request, 'That is not a valid subject.')
@@ -90,7 +90,7 @@ def enroll(request):
                         comments=form.cleaned_data['comments'],
                     ).save()
                 if Exam.objects.filter(user_id=request.user.pk, exam=new_exam):
-                    messages.warning(request, f'You have already enrolled in that exam.')
+                    messages.warning(request, 'You have already enrolled in all or some of the exams chosen.')
                     return HttpResponseRedirect(reverse('academy:enroll'))
                 if new_exam != '':
                     if new_exam not in EXAMS_CHOICES:
@@ -198,8 +198,12 @@ def view_class(request, class_type, class_id):
     if request.method == 'POST':
         if class_type == 'Subject':
             Subject.objects.get(pk=class_id).delete()
-        else:
+        elif class_type == 'Exam':
             Exam.objects.get(pk=class_id).delete()
+        else:
+            messages.warning(request, 'Invalid class type. Please try again.')
+            return HttpResponseRedirect(reverse('academy:classes'))
+        messages.success(request, 'You have successfully dropped the class.')
         return HttpResponseRedirect(reverse('academy:classes'))
 
     if class_type == 'Subject':

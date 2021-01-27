@@ -16,10 +16,9 @@ class Subject(models.Model):
     subject = models.CharField(max_length=20, choices=SUBJECT_CHOICES)
     date = models.DateField(auto_now_add=True)
     viewed = models.IntegerField(null=True, default=0)
-    files = models.FileField(upload_to='documents/class_files')
-    comments = models.TextField()
-    other_info = models.TextField()
-
+    link = models.TextField(null=True, blank=True)
+    files = models.FileField(upload_to='documents/class_files', null=True, blank=True)
+    comments = models.TextField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
 
     # Order the subject by date added
@@ -45,9 +44,7 @@ class Exam(models.Model):
         ('sat', 'SAT'),
         ('act', 'ACT'),
         ('toefl', 'TOEFL'),
-        ('sat_phys', 'SAT Subject Test: Physics'),
-        ('sat_math1', 'SAT Subject Test: Math Level 1'),
-        ('sat_math2', 'SAT Subject Test: Math Level 2'),
+        ('ielts', 'IELTS'),
         ('ap_phys1', 'AP Physics 1'),
         ('ap_phys2', 'AP Physics 2'),
         ('ap_phys_em', 'AP Physics C: Electricity & Magnetism'),
@@ -59,24 +56,17 @@ class Exam(models.Model):
     date = models.DateField(auto_now_add=True)
     viewed = models.IntegerField(null=True, default=0)
     test_date = models.DateField(null=True)
-    files = models.FileField(upload_to='documents/class_files')
-    comments = models.TextField()
-    other_info = models.TextField()
-
+    link = models.TextField(null=True)
+    files = models.FileField(upload_to='documents/class_files', null=True, blank=True)
+    comments = models.TextField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
 
     # Order the subject by date added
     class Meta:
         ordering = ('-created',)
     def __str__(self):
-        if self.exam in ['sat', 'act','toefl']:
+        if self.exam in ['sat', 'act','toefl', 'ielts']:
             return self.exam.upper()
-        elif self.exam == 'sat_phys':
-            return 'SAT Subject Test: Physics'
-        elif self.exam == 'sat_math1':
-            return 'SAT Subject Test: Math Level 1'
-        elif self.exam == 'sat_math2':
-            return 'SAT Subject Test: Math Level 2'
         elif self.exam == 'ap_phys1':
             return 'AP Physics 1'
         elif self.exam == 'ap_phys2':

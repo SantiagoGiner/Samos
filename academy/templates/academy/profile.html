@@ -20,11 +20,11 @@
     {% elif profile %}
         <h1>{{ user.first_name }}'s Profile</h1>
         <hr>
-        <div id="profile" class="container justify-content-center">
+        <div id="profile" class="flexbox">
             <div style="width: 30%;">
                 <img id="profile_photo" src="{{ profile.photo.url }}" alt="Your profile photo">
             </div>
-            <p class="text-justify mx-4 mt-2">{{ profile.bio }}</p>
+            <p class="text-justify mx-5 my-5">{{ profile.bio }}</p>
         </div>
         <form action="{% url 'academy:change_profile' profile.pk 'delete' %}" method="POST">
             {% csrf_token %}
