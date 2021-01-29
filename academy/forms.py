@@ -80,4 +80,4 @@ class ProfileForm(forms.Form):
         help_text='''Tell us about yourself. Provide a brief description of interests, hobbies, goals, 
                       or anything else you may want to add.'''
     )
-    photo = forms.ImageField(required=False, help_text='If you want to, submit a photo of yourself.')
+    photo = forms.ImageField(help_text='If you want to, submit a photo of yourself.')

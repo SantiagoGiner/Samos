@@ -39,7 +39,7 @@ def index(request):
     if Subject.objects.filter(user_id=request.user.pk) or Exam.objects.filter(user_id=request.user.pk):
         return HttpResponseRedirect(reverse('academy:classes'))
     return render(request, 'academy/about.html', {
-        'message': '''**Looks like you haven't enrolled in any classes. Enroll '''
+        'message': '''**Looks like you haven't enrolled in any classes. '''
     })
 
 
@@ -52,11 +52,21 @@ def about(request):
 @login_required
 @object_required
 def change_profile(request, profile_id, action):
-    if action == 'delete':
-        Profile.objects.get(pk=profile_id).delete()
-        messages.success(request, 'You have deleted your profile.')
-    return HttpResponseRedirect(reverse('academy:profile'))
-
+    if request.method == 'POST':
+        if action == 'delete':
+            Profile.objects.get(pk=profile_id).delete()
+            messages.success(request, 'You have deleted your profile.')
+        elif action == 'update':
+            profile = Profile.objects.get(pk=profile_id)
+            profile.country = request.POST['country']
+            profile.city = request.POST['city']
+            profile.bio = request.POST['bio']
+            profile.photo = request.FILES['photo']
+            profile.save()
+            messages.success(request, 'Profile successfully updated!')
+        else:
+            messages.warning(request, f'The action {action} is invalid.')
+        return HttpResponseRedirect(reverse('academy:profile'))
 
 @login_required
 @object_required
@@ -158,12 +168,19 @@ def profile(request):
             messages.success(request, 'You have successfully created your profile!')
             return HttpResponseRedirect(reverse('academy:profile'))
     try:
+        profile = Profile.objects.get(user_id=request.user.pk)
         return render(request, 'academy/profile.html', {
-        'profile': Profile.objects.get(user_id=request.user.pk)
+        'profile': profile,
+        'update_profile_form': ProfileForm({
+            'country': profile.country, 
+            'city': profile.city, 
+            'bio': profile.bio,
+            'photo': profile.photo
+        })
     })
     except ObjectDoesNotExist:
         return render(request, 'academy/profile.html', {
-            'form': ProfileForm()
+            'add_profile_form': ProfileForm()
         })
 
 
