@@ -1,5 +1,14 @@
 {% extends 'academy/layout.html' %}
 
+{% block head %}
+    <style>
+        iframe {
+            height: 27vh !important;
+            width: auto !important;
+        }
+    </style>
+{% endblock %}
+
 {% block title %} Gallery {% endblock %}
 
 {% block body %}
@@ -8,12 +17,10 @@
     {% if videos %}
         <div class="flexbox">
             {% for video in videos %}
-                <div class="container my-5">
+                <div class="mx-5 my-5">
                     <h3>{{ video.title }}</h3>
                     <h6><i>{{ video.tagline }}</i></h6>
-                    <div class="video">
-                        {{ video.code | safe }}
-                    </div>
+                    {{ video.code | safe }}
                 </div>
             {% endfor %}
         </div>

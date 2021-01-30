@@ -58,6 +58,10 @@ hr {
     background-color: #00ff00;
 }
 
+i {
+    color: #b8b8b8;
+}
+
 label[class=""] {
     font-size: 21px;
 }
@@ -148,11 +152,6 @@ p {
     font-size: 21px;
     margin-bottom: 5px;
     color: #e0dcdc;
-}
-
-.video {
-    width: 40% !important;
-    height: auto !important;
 }
 
 
