@@ -150,6 +150,11 @@ p {
     color: #e0dcdc;
 }
 
+.video {
+    width: 40% !important;
+    height: auto !important;
+}
+
 
 /* Elements by id */
 #center_flex {

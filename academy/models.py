@@ -85,3 +85,9 @@ class Profile(models.Model):
     city = models.CharField(max_length=64)
     bio = models.TextField()
     photo = models.ImageField(null=True, upload_to='profiles/')
+
+
+class Video(models.Model):
+    tagline = models.CharField(max_length=64)
+    title = models.CharField(max_length=100)
+    code = models.TextField()

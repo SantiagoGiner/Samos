@@ -29,7 +29,8 @@
                         <a class="navbar-brand mx-2" href="{% url 'academy:enroll' %}">&#127941;Enroll</a>
                         <a class="navbar-brand mx-2" href="{% url 'academy:classes' %}">&#128218;{{ user.first_name }}'s classes</a>
                         <a class="navbar-brand mx-2" href="{% url 'academy:profile' %}">&#128100;{{ user.first_name }}'s profile</a>
-                        <a class="navbar-brand ml-2 mr-5" href="{% url 'academy:schedule' %}">&#128197;Schedule a meeting</a>
+                        <a class="navbar-brand mx-2" href="{% url 'academy:schedule' %}">&#128197;Schedule a meeting</a>
+                        <a class="navbar-brand ml-2 mr-5" href="{% url 'academy:gallery' %}">&#127909;Gallery</a>
                         <a class="navbar-brand ml-5" href="{% url 'academy:logout' %}">Log out</a>
                     {% else %}
                         <a class="navbar-brand mx-2" href="{% url 'academy:register' %}">Create an Account</a>

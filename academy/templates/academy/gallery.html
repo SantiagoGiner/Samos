@@ -1,0 +1,21 @@
+{% extends 'academy/layout.html' %}
+
+{% block title %} Gallery {% endblock %}
+
+{% block body %}
+    <h1>Samos Gallery</h1>
+    <hr>
+    {% if videos %}
+        <div class="flexbox">
+            {% for video in videos %}
+                <div class="container my-5">
+                    <h3>{{ video.title }}</h3>
+                    <h6><i>{{ video.tagline }}</i></h6>
+                    <div class="video">
+                        {{ video.code | safe }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

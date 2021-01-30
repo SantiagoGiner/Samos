@@ -122,6 +122,13 @@ def enroll(request):
     })    
 
 
+@login_required
+def gallery(request):
+    return render(request, 'academy/gallery.html', {
+        'videos': Video.objects.all()
+    })
+
+
 def login_view(request):
     # Route was reached via POST, as by submitting a form
     if request.method == 'POST':
@@ -156,17 +163,15 @@ def logout_view(request):
 @login_required
 def profile(request):
     if request.method == 'POST':
-        form = ProfileForm(request.POST)
-        if form.is_valid():
-            Profile(
-                user_id=request.user.pk,
-                country=form.cleaned_data['country'],
-                city=form.cleaned_data['city'],
-                bio=form.cleaned_data['bio'],
-                photo=request.FILES['photo'],
-            ).save()
-            messages.success(request, 'You have successfully created your profile!')
-            return HttpResponseRedirect(reverse('academy:profile'))
+        Profile(
+            user_id=request.user.pk,
+            country=request.POST['country'],
+            city=request.POST['city'],
+            bio=request.POST['bio'],
+            photo=request.FILES['photo'],
+        ).save()
+        messages.success(request, 'You have successfully created your profile!')
+        return HttpResponseRedirect(reverse('academy:profile'))
     try:
         profile = Profile.objects.get(user_id=request.user.pk)
         return render(request, 'academy/profile.html', {
@@ -232,4 +237,3 @@ def view_class(request, class_type, class_id):
             'class': Exam.objects.get(pk=class_id),
             'class_type': 'Exam'
         })
-    
