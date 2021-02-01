@@ -231,9 +231,11 @@ def view_class(request, class_type, class_id):
     if class_type == 'Subject':
         return render(request, 'academy/view_class.html', {
             'class': Subject.objects.get(pk=class_id),
-            'class_type': 'Subject'
+            'class_type': 'Subject',
+            'files': File.objects.filter(class_id=class_id)
         })
     return render(request, 'academy/view_class.html', {
             'class': Exam.objects.get(pk=class_id),
-            'class_type': 'Exam'
+            'class_type': 'Exam',
+            'files': File.objects.filter(class_id=class_id)
         })

@@ -17,7 +17,6 @@ class Subject(models.Model):
     date = models.DateField(auto_now_add=True)
     viewed = models.IntegerField(null=True, default=0)
     link = models.TextField(null=True, blank=True)
-    files = models.FileField(upload_to='documents/class_files', null=True, blank=True)
     comments = models.TextField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
 
@@ -57,7 +56,6 @@ class Exam(models.Model):
     viewed = models.IntegerField(null=True, default=0)
     test_date = models.DateField(null=True)
     link = models.TextField(null=True)
-    files = models.FileField(upload_to='documents/class_files', null=True, blank=True)
     comments = models.TextField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
 
@@ -91,3 +89,10 @@ class Video(models.Model):
     tagline = models.CharField(max_length=64)
     title = models.CharField(max_length=100)
     code = models.TextField()
+
+
+class File(models.Model):
+    class_id = models.IntegerField()
+    tagline = models.CharField(max_length=64)
+    title = models.CharField(max_length=64)
+    content = models.FileField(upload_to='documents/class_files')

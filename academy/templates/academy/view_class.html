@@ -17,7 +17,13 @@
         <h2>Class Files</h2>
         <hr>
         {% if files %}
-            <!-- TODO -->
+            <div class="flexbox">
+                {% for file in files %}
+                    <h3>{{ file.title }}</h3>
+                    <h6><i>{{ file.tagline }}</i></h6>
+                    
+                {% endfor %}
+            </div>
         {% else %}
             <h4>Here is where any files relevant for the class will appear.</h4>
         {% endif %}
