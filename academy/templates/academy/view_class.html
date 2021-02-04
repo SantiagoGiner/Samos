@@ -1,5 +1,18 @@
 {% extends 'academy/layout.html' %}
 
+{% block head %}
+    <style>
+        td > a {
+            color: #0000ff;
+            font-weight: bold;
+        }
+
+        td > a:hover {
+            color: #0000ff;
+            text-decoration: underline;
+        }
+    </style>
+{% endblock %}
 
 {% block title %} {{ class }} {% endblock %}
 
@@ -17,13 +30,26 @@
         <h2>Class Files</h2>
         <hr>
         {% if files %}
-            <div class="flexbox">
+            <table class="table table-striped table-light">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Lesson/Topic</th>
+                    <th scope="col">Material</th>
+                    <th scope="col">Date</th>
+                </tr>
+                </thead>
+                <tbody>
                 {% for file in files %}
-                    <h3>{{ file.title }}</h3>
-                    <h6><i>{{ file.tagline }}</i></h6>
-                    
+                    <tr>
+                        <th>{{ forloop.counter }}.</th>
+                        <th scope="row">{{ file.topic }}</th>
+                        <td><a href="{{ file.content.url }}" download>{{ file.title }}</a></td>
+                        <td>{{ file.date }}</td>
+                    </tr>
                 {% endfor %}
-            </div>
+                </tbody>
+            </table>
         {% else %}
             <h4>Here is where any files relevant for the class will appear.</h4>
         {% endif %}

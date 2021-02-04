@@ -2,6 +2,7 @@ from django import forms
 from django.db import models
 from django_countries.fields import CountryField
 from django.contrib.auth.models import User
+from django.contrib import admin
 
 
 class Subject(models.Model):
@@ -26,17 +27,18 @@ class Subject(models.Model):
 
     def __str__(self):
         if self.subject == 'ph':
-            return 'Physics'
+            return 'Physics' + ' User-' + str(self.user_id)
         elif self.subject == 'mt':
-            return 'Mathematics'
+            return 'Mathematics' + ' User-' + str(self.user_id)
         elif self.subject == 'cs':
-            return 'Computer Science'
-        elif self.subject == 'bi':
-            return 'Biology'
-        elif self.subject == 'ch':
-            return 'Chemistry'
+            return 'Computer Science' + ' User-' + str(self.user_id)
         else:
             return self.subject
+
+
+class SubjectAdmin(admin.ModelAdmin):
+    readonly_fields = ('id',)
+
 
 class Exam(models.Model):
     EXAMS_CHOICES = [
@@ -62,19 +64,25 @@ class Exam(models.Model):
     # Order the subject by date added
     class Meta:
         ordering = ('-created',)
+
+
     def __str__(self):
         if self.exam in ['sat', 'act','toefl', 'ielts']:
-            return self.exam.upper()
+            return self.exam.upper() + ' User-' + str(self.user_id)
         elif self.exam == 'ap_phys1':
-            return 'AP Physics 1'
+            return 'AP Physics 1' + ' User-' + str(self.user_id)
         elif self.exam == 'ap_phys2':
-            return 'AP Physics 2'
+            return 'AP Physics 2' + ' User-' + str(self.user_id)
         elif self.exam == 'ap_phys_em':
-            return 'AP Physics C: Electricity & Magnetism'
+            return 'AP Physics C: Electricity & Magnetism' + ' User-' + str(self.user_id)
         elif self.exam == 'ap_phys_mech':
-            return 'AP Physics C: Mechanics'
+            return 'AP Physics C: Mechanics' + ' User-' + str(self.user_id)
         else:
             return self.exam
+
+
+class ExamAdmin(admin.ModelAdmin):
+    readonly_fields = ('id',)
 
 
 class Profile(models.Model):
@@ -85,14 +93,33 @@ class Profile(models.Model):
     photo = models.ImageField(null=True, upload_to='profiles/')
 
 
+class ProfileAdmin(admin.ModelAdmin):
+    readonly_fields = ('id',)
+
+
 class Video(models.Model):
     tagline = models.CharField(max_length=64)
     title = models.CharField(max_length=100)
     code = models.TextField()
 
+    def __str__(self):
+        return self.title
+
+
+class VideoAdmin(admin.ModelAdmin):
+    readonly_fields = ('id',)
+
 
 class File(models.Model):
-    class_id = models.IntegerField()
-    tagline = models.CharField(max_length=64)
+    class_pk = models.IntegerField()
+    topic = models.CharField(max_length=64)
     title = models.CharField(max_length=64)
+    date = models.DateField(auto_now_add=True)
     content = models.FileField(upload_to='documents/class_files')
+
+    def __str__(self):
+        return self.title
+
+
+class FileAdmin(admin.ModelAdmin):
+    readonly_fields = ('id',)

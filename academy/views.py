@@ -228,14 +228,15 @@ def view_class(request, class_type, class_id):
         messages.success(request, 'You have successfully dropped the class.')
         return HttpResponseRedirect(reverse('academy:classes'))
 
+    print(File.objects.filter(class_pk=class_id))
     if class_type == 'Subject':
         return render(request, 'academy/view_class.html', {
             'class': Subject.objects.get(pk=class_id),
             'class_type': 'Subject',
-            'files': File.objects.filter(class_id=class_id)
+            'files': File.objects.filter(class_pk=class_id)
         })
     return render(request, 'academy/view_class.html', {
             'class': Exam.objects.get(pk=class_id),
             'class_type': 'Exam',
-            'files': File.objects.filter(class_id=class_id)
+            'files': File.objects.filter(class_pk=class_id)
         })

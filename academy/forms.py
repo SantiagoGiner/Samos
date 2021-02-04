@@ -26,7 +26,6 @@ class EnrollForm(forms.Form):
         ('ph', 'Physics'),
         ('mt', 'Math'),
         ('cs', 'Computer Science'),
-        ('bi', 'Biology'),
     ]
     EXAMS_CHOICES = [
         ('sat', 'SAT'),
@@ -81,3 +80,4 @@ class ProfileForm(forms.Form):
                       or anything else you may want to add.'''
     )
     photo = forms.ImageField(help_text='If you want to, submit a photo of yourself.')
+    

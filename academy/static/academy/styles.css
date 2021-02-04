@@ -70,6 +70,15 @@ main {
     overflow-x: hidden;
 }
 
+nav a {
+    color: #ffffff;
+}
+
+nav a:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+
 p {
     font-size: 1.3vw;
     line-height: 1.8;
@@ -94,6 +103,12 @@ p {
 }
 
 .flexbox {
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.flexbox-left {
     display: flex;
     flex-wrap: wrap;
 }
@@ -182,7 +197,6 @@ p {
 #myphoto {
     height: 300px;
     width: 250px;
-    margin-right: 15px;
 }
 
 #profile_photo {
@@ -195,11 +209,9 @@ p {
 
 #samos-description {
     right: 0%;
-    width: 60%;
 }
 
 #venezuela {
     width: 350px;
     height: 230px;
-    margin-left: 15px;
 }

@@ -15,7 +15,7 @@
         <p>
             This is your opportunity to express who you are, your interests, your goals, what you hope to do later in
             life. It's perfectly fine if you do not know what you want to dedicate yourself to (I sure know it took
-            me a while to decide). Just be open; this is a way for me to get to know you.
+            me a while to decide). Just be open; this is a way for instructors to get to know you.
         </p>
         <form action="{% url 'academy:profile' %}" enctype="multipart/form-data" method="POST">
             {% csrf_token %}
@@ -25,7 +25,7 @@
     {% elif profile %}
         <h1>{{ user.first_name }}'s Profile</h1>
         <hr>
-        <div id="profile" class="flexbox">
+        <div id="profile" class="flexbox-left">
             <div style="width: 30%;">
                 <img id="profile_photo" src="{{ profile.photo.url }}" alt="Your profile photo">
                 <p class="text-center mx-2 my-2">{{ profile.city }}, {{ profile.country }}</p>
