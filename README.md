@@ -9,9 +9,11 @@ Through this feature, new students can browse the topics I am comfortable teachi
 can then submit a form with the classes that are of interest to them. Once they enroll in a class, it will appear in their own classes section.
 
 ## Classes
-This is where the classes a student is taking will appear. They can view the date on which they enrolled, the classes they have taken, any files relevant for the class, and
-all other information considered relevant.
+This is where the classes a student is taking will appear. They can view details like the date on which they enrolled, the classes they have taken, and the zoom link for the class. Moreover, instructors can, through the Django admin page, upload files that are relevant for a certain class. These files will then appear on the student's view of the class.
 
 ## Profile
-This section allows the student to create their own Samos profile, a way for me to get to know them and learn about their life experience. I believe it is also a way for
+This section allows the student to create their own Samos profile, a way for instructors to get to know them and learn about their life experience. I believe it is also a way for
 students to reflect on their own interests and what they want to do later in life.
+
+## Gallery
+This section contains relevant videos instructors have recorded from classes themselves or that introduce a general topic. They provide the student with material they can review outside of class.
