@@ -66,7 +66,7 @@ def change_profile(request, profile_id, action):
             messages.success(request, 'Profile successfully updated!')
         else:
             messages.warning(request, f'The action {action} is invalid.')
-        return HttpResponseRedirect(reverse('academy:profile'))
+        return HttpResponseRedirect(reverse('academy:account'))
 
 @login_required
 @object_required
@@ -161,31 +161,63 @@ def logout_view(request):
 
 
 @login_required
-def profile(request):
+def account(request, action=''):
     if request.method == 'POST':
-        Profile(
-            user_id=request.user.pk,
-            country=request.POST['country'],
-            city=request.POST['city'],
-            bio=request.POST['bio'],
-            photo=request.FILES['photo'],
-        ).save()
-        messages.success(request, 'You have successfully created your profile!')
-        return HttpResponseRedirect(reverse('academy:profile'))
+        if action == 'profile':
+            Profile(
+                user_id=request.user.pk,
+                country=request.POST['country'],
+                city=request.POST['city'],
+                bio=request.POST['bio'],
+                photo=request.FILES['photo'],
+            ).save()
+            messages.success(request, 'You have successfully created your profile!')
+            return HttpResponseRedirect(reverse('academy:account'))
+        elif action == 'delete':
+            try:
+                user = User.objects.get(pk=request.user.pk)
+                user.delete()
+                messages.success(request, '''Account deleted. We're sorry to see you go.''')
+            except ObjectDoesNotExist:
+                messages.warning(request, 'Looks like that account does not exist.')
+            return HttpResponseRedirect(reverse('academy:login'))
+        elif action == 'manage':
+            form = ManageAccountForm(request.POST)
+            if form.is_valid():
+                user = User.objects.get(pk=request.user.pk)
+                user.username = form.cleaned_data['username']
+                user.first_name = form.cleaned_data['first_name']
+                user.last_name = form.cleaned_data['last_name']
+                user.save()
+                messages.success(request, 'Account information updated successfully!')
+            return HttpResponseRedirect(reverse('academy:account'))
+        else:
+            messages.warning(request, 'That method is not valid. Please try again.')
+            return HttpResponseRedirect(reverse('academy:account'))
     try:
         profile = Profile.objects.get(user_id=request.user.pk)
-        return render(request, 'academy/profile.html', {
+        return render(request, 'academy/account.html', {
         'profile': profile,
         'update_profile_form': ProfileForm({
             'country': profile.country, 
             'city': profile.city, 
             'bio': profile.bio,
             'photo': profile.photo
+        }),
+        'manage_account_form': ManageAccountForm({
+            'username': request.user.username,
+            'first_name': request.user.first_name,
+            'last_name': request.user.last_name
         })
     })
     except ObjectDoesNotExist:
-        return render(request, 'academy/profile.html', {
-            'add_profile_form': ProfileForm()
+        return render(request, 'academy/account.html', {
+            'add_profile_form': ProfileForm(),
+            'manage_account_form': ManageAccountForm({
+                'username': request.user.username,
+                'first_name': request.user.first_name,
+                'last_name': request.user.last_name
+            })
         })
 
 
@@ -228,15 +260,15 @@ def view_class(request, class_type, class_id):
         messages.success(request, 'You have successfully dropped the class.')
         return HttpResponseRedirect(reverse('academy:classes'))
 
-    print(File.objects.filter(class_pk=class_id))
+    print(File.objects.filter(class_id=class_id))
     if class_type == 'Subject':
         return render(request, 'academy/view_class.html', {
             'class': Subject.objects.get(pk=class_id),
             'class_type': 'Subject',
-            'files': File.objects.filter(class_pk=class_id)
+            'files': File.objects.filter(class_id=class_id)
         })
     return render(request, 'academy/view_class.html', {
             'class': Exam.objects.get(pk=class_id),
             'class_type': 'Exam',
-            'files': File.objects.filter(class_pk=class_id)
+            'files': File.objects.filter(class_id=class_id)
         })

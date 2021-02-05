@@ -110,7 +110,7 @@ nav a:hover {
 }
 
 p {
-    font-size: 1.3vw;
+    font-size: 18px;
     line-height: 1.8;
 }
 
@@ -206,6 +206,11 @@ p {
     position: relative;
 }
 
+#harvard_coat {
+    width: 250px;
+    height: 250px;
+}
+
 #logo {
     border-radius: 10%;
 }
@@ -220,8 +225,8 @@ p {
 }
 
 #myphoto {
-    height: 300px;
-    width: 250px;
+    width: 240px;
+    height: 290px;
 }
 
 #profile_photo {
@@ -237,6 +242,6 @@ p {
 }
 
 #venezuela {
-    width: 350px;
-    height: 230px;
+    width: 300px;
+    height: 200px;
 }

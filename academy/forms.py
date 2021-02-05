@@ -81,3 +81,7 @@ class ProfileForm(forms.Form):
     )
     photo = forms.ImageField(help_text='If you want to, submit a photo of yourself.')
     
+class ManageAccountForm(forms.Form):
+    username = forms.CharField(max_length=64)
+    first_name = forms.CharField(max_length=64)
+    last_name = forms.CharField(max_length=64)

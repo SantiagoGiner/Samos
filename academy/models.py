@@ -111,7 +111,7 @@ class VideoAdmin(admin.ModelAdmin):
 
 
 class File(models.Model):
-    class_pk = models.IntegerField()
+    class_id = models.IntegerField()
     topic = models.CharField(max_length=64)
     title = models.CharField(max_length=64)
     date = models.DateField(auto_now_add=True)
