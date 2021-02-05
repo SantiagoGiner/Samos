@@ -1,1 +1,1 @@
-web: gunicorn humanity.wsgi
+web: gunicorn samos.wsgi
