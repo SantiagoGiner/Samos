@@ -8,7 +8,7 @@ from django.contrib import admin
 class Subject(models.Model):
     SUBJECT_CHOICES = [
         ('ph', 'Physics'),
-        ('mt', 'Math'),
+        ('mt', 'Mathematics'),
         ('cs', 'Computer Science'),
         ('bi', 'Biology'),
     ]
@@ -27,11 +27,11 @@ class Subject(models.Model):
 
     def __str__(self):
         if self.subject == 'ph':
-            return 'Physics' + ' User-' + str(self.user_id)
+            return 'Physics'
         elif self.subject == 'mt':
-            return 'Mathematics' + ' User-' + str(self.user_id)
+            return 'Mathematics'
         elif self.subject == 'cs':
-            return 'Computer Science' + ' User-' + str(self.user_id)
+            return 'Computer Science'
         else:
             return self.subject
 
@@ -68,15 +68,15 @@ class Exam(models.Model):
 
     def __str__(self):
         if self.exam in ['sat', 'act','toefl', 'ielts']:
-            return self.exam.upper() + ' User-' + str(self.user_id)
+            return self.exam.upper()
         elif self.exam == 'ap_phys1':
-            return 'AP Physics 1' + ' User-' + str(self.user_id)
+            return 'AP Physics 1'
         elif self.exam == 'ap_phys2':
-            return 'AP Physics 2' + ' User-' + str(self.user_id)
+            return 'AP Physics 2'
         elif self.exam == 'ap_phys_em':
-            return 'AP Physics C: Electricity & Magnetism' + ' User-' + str(self.user_id)
+            return 'AP Physics C: Electricity & Magnetism'
         elif self.exam == 'ap_phys_mech':
-            return 'AP Physics C: Mechanics' + ' User-' + str(self.user_id)
+            return 'AP Physics C: Mechanics'
         else:
             return self.exam
 

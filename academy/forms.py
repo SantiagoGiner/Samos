@@ -24,7 +24,7 @@ class CreateUserForm(UserCreationForm):
 class EnrollForm(forms.Form):
     SUBJECT_CHOICES = [
         ('ph', 'Physics'),
-        ('mt', 'Math'),
+        ('mt', 'Mathematics'),
         ('cs', 'Computer Science'),
     ]
     EXAMS_CHOICES = [
