@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ['samosacademy.herokuapp.com', '127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
+    'django_cleanup',
     'crispy_forms',
     'academy',
     'django.contrib.admin',
