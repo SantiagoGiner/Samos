@@ -71,7 +71,7 @@ def change_profile(request, profile_id, action):
 @login_required
 @object_required
 def classes(request):
-    subjects = Subject.objects.filter(user_id=request.user.pk)
+    subjects = Subject.objects.filter(user=request.user)
     exams = Exam.objects.filter(user_id=request.user.pk)
     return render(request, 'academy/classes.html', {
         'subjects': subjects,
@@ -88,18 +88,17 @@ def enroll(request):
             new_exam = form.cleaned_data['exam']
             if len(new_subjects) != 0 or new_exam != '':
                 for subject in new_subjects:
-                    if Subject.objects.filter(user_id=request.user.pk, subject=subject):
+                    if Subject.objects.filter(user=request.user, subject=subject):
                         messages.warning(request, 'You have already enrolled in all or some of the subjects chosen.')
                         return HttpResponseRedirect(reverse('academy:enroll'))
                     elif subject not in SUBJECT_CHOICES:
                         messages.warning(request, 'That is not a valid subject.')
                         return HttpResponseRedirect(reverse('academy:enroll'))
                     Subject(
-                        user_id=request.user.pk,
+                        user=request.user,
                         subject=subject,
-                        comments=form.cleaned_data['comments'],
                     ).save()
-                if Exam.objects.filter(user_id=request.user.pk, exam=new_exam):
+                if Exam.objects.filter(user=request.user, exam=new_exam):
                     messages.warning(request, 'You have already enrolled in all or some of the exams chosen.')
                     return HttpResponseRedirect(reverse('academy:enroll'))
                 if new_exam != '':
@@ -107,10 +106,9 @@ def enroll(request):
                         messages.warning(request, 'That is not a valid exam.')
                         return HttpResponseRedirect(reverse('academy:enroll'))
                     Exam(
-                        user_id=request.user.pk,
+                        user=request.user,
                         exam=new_exam,
                         test_date=form.cleaned_data['test_date'],
-                        comments=form.cleaned_data['comments']
                     ).save()
                 messages.success(request, '''You've enrolled! I will reach out to you with further details.''')
                 return HttpResponseRedirect(reverse('academy:classes'))

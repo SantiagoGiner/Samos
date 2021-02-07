@@ -1,3 +1,4 @@
+from django.conf import settings
 from django import forms
 from django.db import models
 from django_countries.fields import CountryField
@@ -5,20 +6,30 @@ from django.contrib.auth.models import User
 from django.contrib import admin
 
 
-class Subject(models.Model):
-    SUBJECT_CHOICES = [
-        ('ph', 'Physics'),
-        ('mt', 'Mathematics'),
-        ('cs', 'Computer Science'),
-        ('bi', 'Biology'),
-    ]
+SUBJECT_CHOICES = [
+    ('ph', 'Physics'),
+    ('mt', 'Mathematics'),
+    ('cs', 'Computer Science'),
+]
 
-    user_id = models.IntegerField()
+EXAMS_CHOICES = [
+    ('sat', 'SAT'),
+    ('act', 'ACT'),
+    ('toefl', 'TOEFL'),
+    ('ielts', 'IELTS'),
+    ('ap_phys1', 'AP Physics 1'),
+    ('ap_phys2', 'AP Physics 2'),
+    ('ap_phys_em', 'AP Physics C: Electricity & Magnetism'),
+    ('ap_phys_mech', 'AP Physics C: Mechanics'),
+]
+
+class Subject(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     subject = models.CharField(max_length=20, choices=SUBJECT_CHOICES)
     date = models.DateField(auto_now_add=True)
     viewed = models.IntegerField(null=True, default=0)
     link = models.TextField(null=True, blank=True)
-    comments = models.TextField(null=True, blank=True)
+
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
 
     # Order the subject by date added
@@ -26,14 +37,10 @@ class Subject(models.Model):
         ordering = ('-created',)
 
     def __str__(self):
-        if self.subject == 'ph':
-            return 'Physics'
-        elif self.subject == 'mt':
-            return 'Mathematics'
-        elif self.subject == 'cs':
-            return 'Computer Science'
-        else:
-            return self.subject
+        subjects = {}
+        for subject in SUBJECT_CHOICES:
+            subjects[subject[0]] = subject[1]
+        return self.user.get_full_name() + ' - ' + subjects[self.subject]
 
 
 class SubjectAdmin(admin.ModelAdmin):
@@ -41,24 +48,13 @@ class SubjectAdmin(admin.ModelAdmin):
 
 
 class Exam(models.Model):
-    EXAMS_CHOICES = [
-        ('sat', 'SAT'),
-        ('act', 'ACT'),
-        ('toefl', 'TOEFL'),
-        ('ielts', 'IELTS'),
-        ('ap_phys1', 'AP Physics 1'),
-        ('ap_phys2', 'AP Physics 2'),
-        ('ap_phys_em', 'AP Physics C: Electricity & Magnetism'),
-        ('ap_phys_mech', 'AP Physics C: Mechanics'),
-    ]
-
-    user_id = models.IntegerField()
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     exam = models.CharField(max_length=20)
     date = models.DateField(auto_now_add=True)
     viewed = models.IntegerField(null=True, default=0)
     test_date = models.DateField(null=True)
     link = models.TextField(null=True)
-    comments = models.TextField(null=True, blank=True)
+
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
 
     # Order the subject by date added
@@ -67,18 +63,10 @@ class Exam(models.Model):
 
 
     def __str__(self):
-        if self.exam in ['sat', 'act','toefl', 'ielts']:
-            return self.exam.upper()
-        elif self.exam == 'ap_phys1':
-            return 'AP Physics 1'
-        elif self.exam == 'ap_phys2':
-            return 'AP Physics 2'
-        elif self.exam == 'ap_phys_em':
-            return 'AP Physics C: Electricity & Magnetism'
-        elif self.exam == 'ap_phys_mech':
-            return 'AP Physics C: Mechanics'
-        else:
-            return self.exam
+        exams = {}
+        for exam in EXAMS_CHOICES:
+            exams[exam[0]] = exam[1]
+        return self.user.get_full_name() + ' - ' + exams[self.exam]
 
 
 class ExamAdmin(admin.ModelAdmin):
