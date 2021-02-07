@@ -74,11 +74,14 @@ class ExamAdmin(admin.ModelAdmin):
 
 
 class Profile(models.Model):
-    user_id = models.IntegerField()
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     country = CountryField()
     city = models.CharField(max_length=64)
     bio = models.TextField()
     photo = models.ImageField(null=True, upload_to='profiles/')
+
+    def __str__(self):
+        return 'Profile: ' + self.user.get_username()
 
 
 class ProfileAdmin(admin.ModelAdmin):

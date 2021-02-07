@@ -163,7 +163,7 @@ def account(request, action=''):
     if request.method == 'POST':
         if action == 'profile':
             Profile(
-                user_id=request.user.pk,
+                user=request.user,
                 country=request.POST['country'],
                 city=request.POST['city'],
                 bio=request.POST['bio'],
@@ -174,10 +174,15 @@ def account(request, action=''):
         elif action == 'delete':
             try:
                 user = User.objects.get(pk=request.user.pk)
-                user.delete()
-                messages.success(request, '''Account deleted. We're sorry to see you go.''')
             except ObjectDoesNotExist:
                 messages.warning(request, 'Looks like that account does not exist.')
+            subjects = Subject.objects.filter(user=user)
+            exams = Exam.objects.filter(user=user)
+            for subject, exam in zip(subjects, exams):
+                File.objects.filter(class_id=subject.pk).delete()
+                File.objects.filter(class_id=exam.pk).delete()
+            user.delete()
+            messages.success(request, '''Account deleted. We're sorry to see you go.''')
             return HttpResponseRedirect(reverse('academy:login'))
         elif action == 'manage':
             form = ManageAccountForm(request.POST)
