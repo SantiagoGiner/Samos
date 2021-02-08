@@ -4,47 +4,47 @@
 {% block title %} My courses {% endblock %}
 
 {% block head %}
-    <style>
-        p {
-            color: #000000;
-        }
-        div > img {
-            height: 45%;
-            width: 100%;
-            margin-bottom: 10px;
-        }
-    </style>
+<style>
+    p {
+        color: #000000;
+    }
+    div > img {
+        height: 45%;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+</style>
 {% endblock %}
 
 {% block body %}
-    <h1>{{ user.first_name }}'s Courses</h1>
-    <hr>
-    {% if not courses %}
-        <h4 class="text-center my-5">
-            Looks like you haven't enrolled in any courses. <a href="{% url 'academy:enroll' %}">Enroll now!</a>
-        </h4>
-    {% else %}
-        <div class="card-columns">
-            {% for course in courses %}
-                <div class="card w-75 mx-3 my-3 p-2">
-                    {% if course.title == 'ph' %}
-                        <img class="card-img-top" src="{% static 'academy/physics.jpg' %}" alt="Physics formulae">
-                    {% elif course.title == 'mt' %}
-                        <img class="card-img-top" src="{% static 'academy/mathematics.jpg' %}" alt="Math formulae">
-                    {% elif course.title == 'cs' %}
-                        <img class="card-img-top" src="{% static 'academy/programming.jpg' %}" alt="Programming">
-                    {% else %}
-                        <img src="{% static 'academy/tests.jpg' %}" alt="Standardized Tests">
-                    {% endif %}
-                    <div class="card-body">
-                        <h5 class="card-title">{{ course }}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Enrolled: {{ course.date }}</h6>
-                        <p>Classes viewed: {{ course.viewed }}</p>
-                        <a class="btn btn-primary" href="{% url 'academy:view_course' course.pk %}">View course</a>
-                    </div>
-                </div>
-            {% endfor %}
+<h1>{{ user.first_name }}'s Courses</h1>
+<hr>
+{% if not courses %}
+<h4 class="text-center my-5">
+    Looks like you haven't enrolled in any courses. <a href="{% url 'academy:enroll' %}">Enroll now!</a>
+</h4>
+{% else %}
+<div class="card-columns text-center">
+    {% for course in courses %}
+    <div class="card w-75 mx-3 my-3 p-2">
+        {% if course.title == 'ph' %}
+        <img class="card-img-top" src="{% static 'academy/physics.jpg' %}" alt="Physics formulae">
+        {% elif course.title == 'mt' %}
+        <img class="card-img-top" src="{% static 'academy/mathematics.jpg' %}" alt="Math formulae">
+        {% elif course.title == 'cs' %}
+        <img class="card-img-top" src="{% static 'academy/programming.jpg' %}" alt="Programming">
+        {% else %}
+        <img src="{% static 'academy/tests.jpg' %}" alt="Standardized Tests">
+        {% endif %}
+        <div class="card-body">
+            <h5 class="card-title">{{ course }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Enrolled: {{ course.date }}</h6>
+            <p>Classes viewed: {{ course.viewed }}</p>
+            <a class="btn btn-primary" href="{% url 'academy:view_course' course.pk %}">View course</a>
         </div>
-        <a class="btn btn-success my-5" href="{% url 'academy:enroll' %}">Enroll in other courses</a>
-    {% endif %}
+    </div>
+    {% endfor %}
+</div>
+<a class="btn btn-success my-5" href="{% url 'academy:enroll' %}">Enroll in other courses</a>
+{% endif %}
 {% endblock %}

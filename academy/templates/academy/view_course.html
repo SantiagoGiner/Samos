@@ -1,91 +1,76 @@
 {% extends 'academy/layout.html' %}
 
-{% block head %}
-    <style>
-        td > a {
-            color: #0000ff;
-            font-weight: bold;
-        }
-
-        td > a:hover {
-            color: #0000ff;
-            text-decoration: underline;
-        }
-    </style>
-{% endblock %}
-
 {% block title %} {{ course }} {% endblock %}
 
 {% block body %}
-    <div class="jumbotron">
-        <h1 class="display-4">{{ course }}</h1>
-        <hr>
-        <p class="lead">Enrolled: {{ course.date }}</p>
-        <p class="lead">Classes viewed: {{ course.viewed }}</p>
-        {% if course.test_date %}
-        <p class="lead">Test date: {{ course.test_date }}</p>    
-        {% endif %}
-        {% if course.link %}
-            <p class="lead">Class location:  <a class="btn btn-primary" href="{{ course.link }}">Join Zoom Meeting</a></p>    
-        {% endif %}
-    </div>
-    <div class="class-description">
-        <h2>Course Files</h2>
-        <hr>
-        {% if files %}
-            <table class="table table-striped table-light">
-                <thead class="thead-light">
-                <tr>
-                    <th scope="col"></th>
-                    <th scope="col">Lesson/Topic</th>
-                    <th scope="col">Material</th>
-                    <th scope="col">Date</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for file in files %}
-                    <tr>
-                        <th>{{ forloop.counter }}.</th>
-                        <th scope="row">{{ file.topic }}</th>
-                        <td><a href="{{ file.content.url }}" download>{{ file.title }}</a></td>
-                        <td>{{ file.date }}</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        {% else %}
-            <h4>Here is where any files relevant for the course will appear.</h4>
-        {% endif %}
-    </div>
-    <a class="btn btn-secondary my-5" href="{% url 'academy:courses' %}">Back to my courses</a>
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-danger my-2" data-toggle="modal" data-target="#dropCourseModal">
-        Drop course
-    </button>
-    <!-- Drop Course Modal -->
-    <div class="modal fade" id="dropCourseModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to drop {{ course }}?</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-                <div class="modal-body">
-                    <p class="modal-paragraph">
-                        If you do, you will have to enroll again through the Enroll page should you wish to take the course again.                          
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <form action="{% url 'academy:drop_course' course.pk %}" method="POST">
-                        {% csrf_token %}
-                        <button class="btn btn-danger" type="submit">Yes, drop course</button>
-                    </form>
-                </div>
+<div class="jumbotron">
+    <h1 class="display-4">{{ course }}</h1>
+    <hr>
+    <p class="lead">Enrolled: {{ course.date }}</p>
+    <p class="lead">Classes viewed: {{ course.viewed }}</p>
+    {% if course.test_date %}
+    <p class="lead">Test date: {{ course.test_date }}</p>    
+    {% endif %}
+    {% if course.link %}
+    <p class="lead">Class location:  <a class="btn btn-primary" href="{{ course.link }}">Join Zoom Meeting</a></p>    
+    {% endif %}
+</div>
+<div class="class-description">
+    <h2>Course Files</h2>
+    <hr>
+    {% if files %}
+    <table class="table table-striped table-light">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">Lesson/Topic</th>
+            <th scope="col">Material</th>
+            <th scope="col">Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for file in files %}
+        <tr>
+            <th>{{ forloop.counter }}.</th>
+            <th scope="row">{{ file.topic }}</th>
+            <td><a href="{{ file.content.url }}" download>{{ file.title }}</a></td>
+            <td>{{ file.date }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <h4>Here is where any files relevant for the course will appear.</h4>
+    {% endif %}
+</div>
+<a class="btn btn-secondary my-5" href="{% url 'academy:courses' %}">Back to my courses</a>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-danger my-2" data-toggle="modal" data-target="#dropCourseModal">
+    Drop course
+</button>
+<!-- Drop Course Modal -->
+<div class="modal fade" id="dropCourseModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to drop the course {{ course }}?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-paragraph">
+                    If you do, you will have to enroll again through the Enroll page should you wish to take the course again.                          
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <form action="{% url 'academy:drop_course' course.pk %}" method="POST">
+                    {% csrf_token %}
+                    <button class="btn btn-danger" type="submit">Yes, drop course</button>
+                </form>
             </div>
         </div>
     </div>
-    
+</div>
 {% endblock %}

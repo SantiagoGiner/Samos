@@ -3,112 +3,107 @@
 {% load crispy_forms_tags %}
 
 {% block head %}
-    <script src="{% static 'academy/profile.js' %}"></script>
-    <style>
-        .modal-body label {
-            color: #000000 !important;
-        }
-    </style>
+<script src="{% static 'academy/profile.js' %}"></script>
 {% endblock %}
 
 {% block title %} My profile {% endblock %}
 
 {% block body %}
-    {% if add_profile_form %}
-        <h1 class>{{ user.first_name }} {{ user.last_name }} ({{ user.username }})</h1>
-        <hr>
-        <h2>Create a Profile</h2>
-        <p>
-            In this section, you can create a profile with general information about yourself.
-            This is your opportunity to express who you are, your interests, your goals, what you hope to do later in
-            life. It's perfectly fine if you don't know what you want to pursue in life (I sure know it took
-            me a while to decide). Just be open; this is a way for instructors to get to know you!
-        </p>
-        <form action="{% url 'academy:change_account' 'profile' %}" enctype="multipart/form-data" method="POST">
-            {% csrf_token %}
-            {{ add_profile_form | crispy }}
-            <button class="btn btn-success" type="submit">Create profile</button>
-        </form>
-    {% elif profile %}
-        <h1>{{ user.first_name }}'s Profile</h1>
-        <hr>
-        <div id="profile" class="flexbox-left">
-            <div style="width: 30%;">
-                <img id="profile_photo" src="{{ profile.photo.url }}" alt="Your profile photo">
-                <p class="text-center mx-2 my-2">{{ profile.city }}, {{ profile.country }}</p>
+{% if add_profile_form %}
+<h1 class>{{ user.first_name }} {{ user.last_name }} ({{ user.username }})</h1>
+<hr>
+<h2>Create a Profile</h2>
+<p>
+    In this section, you can create a profile with general information about yourself.
+    This is your opportunity to express who you are, your interests, your goals, what you hope to do later in
+    life. It's perfectly fine if you don't know what you want to pursue in life (I sure know it took
+    me a while to decide). Just be open; this is a way for instructors to get to know you!
+</p>
+<form action="{% url 'academy:change_account' 'profile' %}" enctype="multipart/form-data" method="POST">
+    {% csrf_token %}
+    {{ add_profile_form | crispy }}
+    <button class="btn btn-success" type="submit">Create profile</button>
+</form>
+{% elif profile %}
+<h1>{{ user.first_name }}'s Profile</h1>
+<hr>
+<div id="profile" class="flexbox-left">
+    <div style="width: 30%;">
+        <img id="profile_photo" src="{{ profile.photo.url }}" alt="Your profile photo">
+        <p class="text-center mx-2 my-2">{{ profile.city }}, {{ profile.country }}</p>
+    </div>
+    <p class="text-justify mx-5 my-5">{{ profile.bio }}</p>
+</div>
+<!-- Button to toggle the form to update the entry -->
+<button class="btn btn-primary my-3" id="toggle_form">Update profile</button>
+<div id="update_profile_form">
+    <!-- Form to update the entry -->
+    <form action="{% url 'academy:change_profile' profile.pk 'update' %}" enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+        {{ update_profile_form | crispy }}
+        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group mr-2" role="group" aria-label="First group">
+                <button class="btn btn-primary my-2" type="submit">Update profile</button>
             </div>
-            <p class="text-justify mx-5 my-5">{{ profile.bio }}</p>
-        </div>
-        <!-- Button to toggle the form to update the entry -->
-        <button class="btn btn-primary my-3" id="toggle_form">Update profile</button>
-        <div id="update_profile_form">
-            <!-- Form to update the entry -->
-            <form action="{% url 'academy:change_profile' profile.pk 'update' %}" enctype="multipart/form-data" method="POST">
-                {% csrf_token %}
-                {{ update_profile_form | crispy }}
-                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                    <div class="btn-group mr-2" role="group" aria-label="First group">
-                        <button class="btn btn-primary my-2" type="submit">Update profile</button>
-                    </div>
-                    <div class="btn-group mr-2" role="group" aria-label="Second group">
-                        <button class="btn btn-secondary my-2" id="close" type="button">Close</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-danger my-3" data-toggle="modal" data-target="#deleteProfileModal">
-            Delete profile
-        </button>
-        <!-- Drop Class Modal -->
-        <div class="modal fade" id="deleteProfileModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete your profile?</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <form action="{% url 'academy:change_profile' profile.pk 'delete' %}" method="POST">
-                            {% csrf_token %}
-                            <button class="btn btn-danger my-5" type="submit">Yes, delete profile</button>
-                        </form>
-                    </div>
-                </div>
+            <div class="btn-group mr-2" role="group" aria-label="Second group">
+                <button class="btn btn-secondary my-2" id="close" type="button">Close</button>
             </div>
         </div>
-    {% endif %}
-    <button type="button" class="btn btn-primary btn-lg btn-block my-4" data-toggle="modal" data-target="#manageAccountModal">
-        Manage account
-    </button>
-     <!-- Manage Account Modal -->
-     <div class="modal fade" id="manageAccountModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">{{ user.first_name }}'s Account</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-                <div class="modal-body">
-                    <form action="{% url 'academy:change_account' 'manage' %}" method="POST">
-                        {% csrf_token %}
-                        {{ manage_account_form | crispy }}
-                        <button class="btn btn-success my-2" type="submit">Update Info</button>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <form action="{% url 'academy:change_account' 'delete' %}" method="POST">
-                        {% csrf_token %}
-                        <button class="btn btn-danger my-5" type="submit">Delete account</button>
-                    </form>
-                </div>
+    </form>
+</div>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-danger my-3" data-toggle="modal" data-target="#deleteProfileModal">
+    Delete profile
+</button>
+<!-- Drop Class Modal -->
+<div class="modal fade" id="deleteProfileModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete your profile?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <form action="{% url 'academy:change_profile' profile.pk 'delete' %}" method="POST">
+                    {% csrf_token %}
+                    <button class="btn btn-danger my-5" type="submit">Yes, delete profile</button>
+                </form>
             </div>
         </div>
     </div>
+</div>
+{% endif %}
+<button type="button" class="btn btn-primary btn-lg btn-block my-4" data-toggle="modal" data-target="#manageAccountModal">
+    Manage account
+</button>
+    <!-- Manage Account Modal -->
+    <div class="modal fade" id="manageAccountModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">{{ user.first_name }}'s Account</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'academy:change_account' 'manage' %}" method="POST">
+                    {% csrf_token %}
+                    {{ manage_account_form | crispy }}
+                    <button class="btn btn-success my-2" type="submit">Update Info</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <form action="{% url 'academy:change_account' 'delete' %}" method="POST">
+                    {% csrf_token %}
+                    <button class="btn btn-danger my-5" type="submit">Delete account</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

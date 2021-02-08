@@ -4,16 +4,16 @@
 {% block title %} Login {% endblock %}
 
 {% block body %}
-    <h1>Samos Academy: User Login</h1>
-    <hr>
-    <!-- Display the login form -->
-    <form action="{% url 'academy:login' %}" autocomplete="off" method="post">
-        {% csrf_token %}
-        {{ form | crispy }}
-        <button class="btn btn-success" type="submit">Login</button>
-        <!-- Redirect the user to register if they do not have an account -->
-        <p>New student? <a href="{% url 'academy:register' %}">Create an account</a></p>
-        <h5 style="margin-top: 100px; color: #ffffff;">"Intellectual growth should commence at birth and cease only at death."</h5>
-        <p>- Albert Einstein</p>
-    </form>
+<h1>Samos Academy: User Login</h1>
+<hr>
+<!-- Display the login form -->
+<form action="{% url 'academy:login' %}" autocomplete="off" method="post">
+    {% csrf_token %}
+    {{ form | crispy }}
+    <button class="btn btn-success" type="submit">Login</button>
+    <!-- Redirect the user to register if they do not have an account -->
+    <p>New student? <a href="{% url 'academy:register' %}">Create an account</a></p>
+</form>
+<h5 style="margin-top: 100px; color: #ffffff;">"Intellectual growth should commence at birth and cease only at death."</h5>
+<p>- Albert Einstein</p>
 {% endblock %}

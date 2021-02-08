@@ -2,56 +2,56 @@
 {% load static %}
 
 {% block head %}
-    <script src="{% static 'academy/welcome.js' %}"></script> 
+<script src="{% static 'academy/welcome.js' %}"></script> 
 {% endblock %}
 
 {% block title %} Samos Academy {% endblock %}
 
 {% block body %}
-    <h1 class="transition" id="welcome" style="text-align: center;" >Welcome to Samos Academy, {{ user.first_name }}</h1>
-    <hr>
-    <div id="background">
-        {% if message %}
-            <h4 class="text-center my-5">{{ message }}<a href="{% url 'academy:enroll' %}">Enroll now!</a>**</h4>
-        {% endif %}
-        <p class="transition">
-            Hello, world! My name is Santiago Giner, and I am a first-year student at Harvard College 
-            studying physics.
+<h1 class="transition" id="welcome" style="text-align: center;" >Welcome to Samos Academy, {{ user.first_name }}</h1>
+<hr>
+<div id="background">
+    {% if message %}
+    <h4 class="text-center my-5">{{ message }}<a href="{% url 'academy:enroll' %}">Enroll now!</a>**</h4>
+    {% endif %}
+    <p class="transition">
+        Hello, world! My name is Santiago Giner, and I am a first-year student at Harvard College 
+        studying physics.
+    </p>
+    <div class="flexbox">
+        <img class="transition" src="{% static 'academy/logo.jpg' %}" id="logofull" alt="Samos Academy Coat of Arms">
+        <p class="text-justify mx-3 mt-4" id="samos-description">
+            This is my tutoring website, where you can view the subjects I can teach and also schedule classes with
+            me. I tutor in physics, math, computer science, and programming. I also specialize in standardized
+            testing for college applications (in the US and abroad). I scored a 1520 on the SAT, 800 in the SAT 
+            Math Level 2, and 780 in the Physics SAT Subject Test. I am now in my second semester at Harvard, 
+            where I have taken classes in physics, math, computer science, and astrophysics. Do feel free to 
+            contact me at <a href="mailto:santiagoginer@college.harvard.edu">santiagoginer@college.harvard.edu</a> 
+            with any and all questions regarding this website, my tutoring, or anything else you might have questions 
+            about. My goal is to reach as many people as I can, helping you achieve your academic goals, and
+            offering advice on college in general.
         </p>
-        <div class="flexbox">
-            <img class="transition" src="{% static 'academy/logo.jpg' %}" id="logofull" alt="Samos Academy Coat of Arms">
-            <p class="text-justify mx-3 mt-4" id="samos-description">
-                This is my tutoring website, where you can view the subjects I can teach and also schedule classes with
-                me. I tutor in physics, math, computer science, and programming. I also specialize in standardized
-                testing for college applications (in the US and abroad). I scored a 1520 on the SAT, 800 in the SAT 
-                Math Level 2, and 780 in the Physics SAT Subject Test. I am now in my second semester at Harvard, 
-                where I have taken classes in physics, math, computer science, and astrophysics. Do feel free to 
-                contact me at <a href="mailto:santiagoginer@college.harvard.edu">santiagoginer@college.harvard.edu</a> 
-                with any and all questions regarding this website, my tutoring, or anything else you might have questions 
-                about. My goal is to reach as many people as I can, helping you achieve your academic goals, and
-                offering advice on college in general.
+        <div id="flexbox">
+            <hr class="transition">
+            <h2>About Santiago</h2>
+            <img class="img-center mx-1" src="{% static 'academy/me.jpg' %}" alt="Photo of Santiago" id="myphoto">
+            <img class="img-center mx-1" src="{% static 'academy/harvard.jpg' %}" alt="Harvard Coat of Arms" id="harvard_coat">
+            <img class="img-center mx-1" src="{% static 'academy/venezuela.jpg' %}" alt="Venezuelan Flag" id="venezuela">
+            <p class="text-justify mx-4 mt-2 mb-5">
+                I was born and raised in Caracas, Venezuela. I am currently living in Cambridge, Massachusetts
+                on the Harvard campus. I graduated from high school in 2020 from Instituto Educational Henry
+                Clay in Caracas. I want to pursue a career in Physics or Astrophysics and plan on going to
+                graduate school after I finish my college studies in order to pursue a PhD. Outside of class,
+                I am an editor for The Harvard Crimson, Harvard's student newspaper and am involved with Harvard Engineers
+                Without Borders, an organization that helps communities in need all around the world, 
+                providing them with reliable water distribution systems. I am also a code developer at
+                <a href="https://www.setreplace.org" target="_blank">SetReplace</a>, a package for the 
+                <a href="https://www.wolframphysics.org" target="_blank">Wolfram Physics project</a>, 
+                which is a new approach towards a fundamental theory of physics developed by Stephen Wolfram. 
+                I also pursue triathlon, i.e. swimming, cycling, and running, a challenging yet also extremely enjoyable sport!
             </p>
-            <div id="flexbox">
-                <hr class="transition">
-                <h2>About Santiago</h2>
-                <img class="img-center mx-1" src="{% static 'academy/me.jpg' %}" alt="Photo of Santiago" id="myphoto">
-                <img class="img-center mx-1" src="{% static 'academy/harvard.jpg' %}" alt="Harvard Coat of Arms" id="harvard_coat">
-                <img class="img-center mx-1" src="{% static 'academy/venezuela.jpg' %}" alt="Venezuelan Flag" id="venezuela">
-                <p class="text-justify mx-4 mt-2 mb-5">
-                    I was born and raised in Caracas, Venezuela. I am currently living in Cambridge, Massachusetts
-                    on the Harvard campus. I graduated from high school in 2020 from Instituto Educational Henry
-                    Clay in Caracas. I want to pursue a career in Physics or Astrophysics and plan on going to
-                    graduate school after I finish my college studies in order to pursue a PhD. Outside of class,
-                    I am an editor for The Harvard Crimson, Harvard's student newspaper and am involved with Harvard Engineers
-                    Without Borders, an organization that helps communities in need all around the world, 
-                    providing them with reliable water distribution systems. I am also a code developer at
-                    <a href="https://www.setreplace.org" target="_blank">SetReplace</a>, a package for the 
-                    <a href="https://www.wolframphysics.org" target="_blank">Wolfram Physics project</a>, 
-                    which is a new approach towards a fundamental theory of physics developed by Stephen Wolfram. 
-                    I also pursue triathlon, i.e. swimming, cycling, and running, a challenging yet also extremely enjoyable sport!
-                </p>
-            </div>
         </div>
-        <a class="btn btn-success btn-lg btn-block" href="{% url 'academy:enroll' %}">Enroll now in Samos!</a>
     </div>
+    <a class="btn btn-success btn-lg btn-block" href="{% url 'academy:enroll' %}">Enroll now in Samos!</a>
+</div>
 {% endblock %}

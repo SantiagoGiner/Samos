@@ -3,241 +3,241 @@
 {% load crispy_forms_tags %}
 
 {% block head %}
-    <style>
-        html, body {
-            background-image: linear-gradient(45deg, #414f8d, #181f47);
-        }
-    </style>
-    <script src="{% static 'academy/enroll.js' %}"></script>
+<style>
+    html, body {
+        background-image: linear-gradient(45deg, #414f8d, #181f47);
+    }
+</style>
+<script src="{% static 'academy/enroll.js' %}"></script>
 {% endblock %}
 
 {% block title %} Enroll {% endblock %}
 
 {% block body %}
-    <div id="overview" class="transition">
-        <h1>Samos Academy: Enroll</h1>
-        <hr class="transition">
-        <h2>Classes</h2>
-        <div class="card-columns">
-            <div class="card w-75 mx-3 my-3 p-2">
-                <img class="card-img-top" src="{% static 'academy/physics.jpg' %}" alt="Wonders of Physics">
-                <div class="card-body">
-                    <h5 class="card-title">Physics</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">From Classical Mechanics to Electromagnetism</h6>
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-success my-2 py-2" data-toggle="modal" data-target="#physicsModal">
-                        Start learning!
-                    </button>
-                </div>
+<div id="overview" class="transition">
+    <h1>Samos Academy: Enroll</h1>
+    <hr class="transition">
+    <h2>Classes</h2>
+    <div class="card-columns text-center">
+        <div class="card w-75 mx-3 my-3 p-2">
+            <img class="card-img-top" src="{% static 'academy/physics.jpg' %}" alt="Wonders of Physics">
+            <div class="card-body">
+                <h5 class="card-title">Physics</h5>
+                <h6 class="card-subtitle mb-2 text-muted">From Classical Mechanics to Electromagnetism</h6>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-success my-2 py-2" data-toggle="modal" data-target="#physicsModal">
+                    Start learning!
+                </button>
             </div>
-            <div class="card w-75 mx-3 my-3 p-2">
-                <img class="card-img-top" src="{% static 'academy/mathematics.jpg' %}" alt="Wonders of Math">
-                <div class="card-body">
-                    <h5 class="card-title" >Mathematics</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">
-                        Algebra, trigonometry, pre-calc, calculus and more...
-                    </h6>
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-success mt-2" data-toggle="modal" data-target="#mathModal">
-                        Start learning!
-                    </button>
-                </div>
+        </div>
+        <div class="card w-75 mx-3 my-3 p-2">
+            <img class="card-img-top" src="{% static 'academy/mathematics.jpg' %}" alt="Wonders of Math">
+            <div class="card-body">
+                <h5 class="card-title" >Mathematics</h5>
+                <h6 class="card-subtitle mb-2 text-muted">
+                    Algebra, trigonometry, pre-calc, calculus and more...
+                </h6>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-success mt-2" data-toggle="modal" data-target="#mathModal">
+                    Start learning!
+                </button>
             </div>
-            <div class="card w-75 mx-3 my-3 p-2">
-                <img class="card-img-top" src="{% static 'academy/tests.jpg' %}" alt="Answer Sheet on Test">
-                <div class="card-body">
-                    <h5 class="card-title" >Standardized Tests</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">SAT, ACT, AP, TOEFL, and more...</h6>
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-success mt-2" data-toggle="modal" data-target="#testsModal">
-                        Start learning!
-                    </button>
-                </div>
+        </div>
+        <div class="card w-75 mx-3 my-3 p-2">
+            <img class="card-img-top" src="{% static 'academy/tests.jpg' %}" alt="Answer Sheet on Test">
+            <div class="card-body">
+                <h5 class="card-title" >Standardized Tests</h5>
+                <h6 class="card-subtitle mb-2 text-muted">SAT, ACT, AP, TOEFL, and more...</h6>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-success mt-2" data-toggle="modal" data-target="#testsModal">
+                    Start learning!
+                </button>
             </div>
-            <div class="card w-75 mx-3 my-3 p-2">
-                <img class="card-img-top" src="{% static 'academy/programming.jpg' %}" alt="Programming languages">
-                <div class="card-body">
-                    <h5 class="card-title" >Computer Science</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Python, C, JavaScript, web development...</h6>
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-success mt-2" data-toggle="modal" data-target="#programmingModal">
-                        Start learning!
-                    </button>
-                </div>
+        </div>
+        <div class="card w-75 mx-3 my-3 p-2">
+            <img class="card-img-top" src="{% static 'academy/programming.jpg' %}" alt="Programming languages">
+            <div class="card-body">
+                <h5 class="card-title">Computer Science</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Python, C, JavaScript, web development...</h6>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-success mt-2" data-toggle="modal" data-target="#programmingModal">
+                    Start learning!
+                </button>
             </div>
         </div>
     </div>
-    <!-- Physics Modal -->
-    <div class="modal fade" id="physicsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Physics</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-                <div class="modal-body">
-                    <img class="container my-4" src="{% static 'academy/physics.jpg' %}" style="height: 45%; width: 100%;" alt="Wonders of Physics">
-                    <p class="modal-paragraph">
-                        You might not realize it, but physics and its achievements are all around you.
-                        For me, physics is one of the greatest achievements of humanity, which allows
-                        us to explain everything we see around us, from the behavior of subnuclear
-                        particles to the large-scale structure of stars and galaxy superclusters. 
-                        Not only that, physics is behind all the major technological advancements of 
-                        our era, including computers, wireless communication, batteries, transportation,
-                        and many others. I wish not only to teach you how to solve problems in physics 
-                        and think analytically and critically, but I also want to teach you about
-                        the importance of physics, how it applies to our everyday life, and all the
-                        beauty it represents.                              
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button class="btn btn-success" data-dismiss="modal">Enroll in tutoring!</button>
-                </div>
+</div>
+<!-- Physics Modal -->
+<div class="modal fade" id="physicsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Physics</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <img class="my-4" src="{% static 'academy/physics.jpg' %}" alt="Wonders of Physics">
+                <p class="modal-paragraph">
+                    You might not realize it, but physics and its achievements are all around you.
+                    For me, physics is one of the greatest achievements of humanity, which allows
+                    us to explain everything we see around us, from the behavior of subnuclear
+                    particles to the large-scale structure of stars and galaxy superclusters. 
+                    Not only that, physics is behind all the major technological advancements of 
+                    our era, including computers, wireless communication, batteries, transportation,
+                    and many others. I wish not only to teach you how to solve problems in physics 
+                    and think analytically and critically, but I also want to teach you about
+                    the importance of physics, how it applies to our everyday life, and all the
+                    beauty it represents.                              
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button class="btn btn-success" data-dismiss="modal">Enroll in tutoring!</button>
             </div>
         </div>
     </div>
-    <!-- Math Modal -->
-    <div class="modal fade" id="mathModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Mathematics</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-                <div class="modal-body">
-                    <img class="container my-4" src="{% static 'academy/mathematics.jpg' %}" style="height: 45%; width: 100%;" alt="Wonders of Math">
-                    <p class="modal-paragraph">
-                        Mathematics is the basis of most everything that is done in modern science. It is the backbone
-                        of our understanding of the universe and it offers us a beautifully elegant framework upon
-                        which we can model real-world phenomena and make accurate predictions about them. Math is
-                        a language in it of itself, and speaking that language is one of the most useful skills one
-                        can learn, for it literally opens up a world of opportunites in which to work on and areas
-                        to explore. I hope to teach you not only mathematical concepts and abilities but also their
-                        real-world applications and importance.                         
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button class="btn btn-success" data-dismiss="modal">Enroll in tutoring!</button>
-                </div>
+</div>
+<!-- Math Modal -->
+<div class="modal fade" id="mathModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Mathematics</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <img class="my-4" src="{% static 'academy/mathematics.jpg' %}" alt="Wonders of Math">
+                <p class="modal-paragraph">
+                    Mathematics is the basis of most everything that is done in modern science. It is the backbone
+                    of our understanding of the universe and it offers us a beautifully elegant framework upon
+                    which we can model real-world phenomena and make accurate predictions about them. Math is
+                    a language in it of itself, and speaking that language is one of the most useful skills one
+                    can learn, for it literally opens up a world of opportunites in which to work on and areas
+                    to explore. I hope to teach you not only mathematical concepts and abilities but also their
+                    real-world applications and importance.                         
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button class="btn btn-success" data-dismiss="modal">Enroll in tutoring!</button>
             </div>
         </div>
     </div>
-    <!-- Tests Modal -->
-    <div class="modal fade" id="testsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Standardized Tests</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-                <div class="modal-body">
-                    <img class="container my-4" src="{% static 'academy/tests.jpg' %}" style="height: 45%; width: 100%;" alt="Answer Sheet on Test">
-                    <p class="modal-paragraph">
-                        I know exactly what you are going through--standardized tests for college applications are extremely
-                        stressful. I went through exactly the same issues as you might very likely be facing: not knowing
-                        where to start with all the material available for the tests, feeling anxious that you might not
-                        be fully prepared for them, thinking that this one test might decide the course of your studies.
-                        Well. First, let me tell you that you need not worry that much: standardized tests like the SAT, ACT,
-                        AP, etc., are indeed an important factor in your application but not in the least
-                        the only one. 
-                        <br>
-                        <br>
-                        And in fact, once you learn the ins and outs of these tests, the way they are desgined, 
-                        and the specific techniques that make a successful test taker, the tests will seem like just another
-                        formalism in college applications. Trust me, I've been there. I aim to help you master the techniques of
-                        taking these tests which are much more important than the content itself. Knowing when to skip questions,
-                        guess on ones, focus on others, these are all things I will help you with. Of course, I will also share
-                        teach you the content of the tests and the best ways of learning for them.
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button class="btn btn-success" data-dismiss="modal">Enroll in tutoring!</button>
-                </div>
+</div>
+<!-- Tests Modal -->
+<div class="modal fade" id="testsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Standardized Tests</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
             </div>
-        </div>
-    </div>
-    <!-- Programming Modal -->
-    <div class="modal fade" id="programmingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Programming and Computer Science</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-                <div class="modal-body">
-                    <img class="container my-4" src="{% static 'academy/programming.jpg' %}" style="height: 45%; width: 100%;" alt="Programming Languages">
-                    <p class="modal-paragraph">
-                        Programming is one of the most useful abilities a beginning college student can learn. Not only will it
-                        let you stand out in college and later job applications, but it will also make you think in a completely
-                        different way than ordinary human thought. And once you are able to think more algorithmically and
-                        programmatically, the effects ripple towards all areas of your life, providing you with a skillset to
-                        face challenges that come your way. I can teach you how to program in:
-                    </p>
-                    <ul>
-                        <li>
-                            <h5>Python: </h5>
-                            <p class="modal-li">
-                                Without a doubt the most common and also useful language for someone looking
-                                to pursue a career in data science, scientific research, web programming, and software
-                                development (e.g. UI/UX design).
-                            </p>
-                        </li>
-                        <br>
-                        <li>
-                            <h5>C: </h5>
-                            <p class="modal-li">
-                                A more robust programming language that teaches you about the inner workings
-                                of a computer, providing a deeper understanding of computation, memory management,
-                                data structures, and algorithms. It can be a harder language to learn at first but
-                                it proves very useful not only in learning about computers but also has applications
-                                in the world of engineering, specifically electrical and mechanical engineering, where
-                                C is very commonly used.
-                            </p>
-                        </li>
-                        <br>
-                        <li>
-                            <h5>JavaScript: </h5>
-                            <p class="modal-li">
-                                An essential programming language for the develpoment of interactive,
-                                responsive, and dynamic websites and web applications. Along with a backend framework (such
-                                as flask and django) which rely on Python, and the frontend framework provided by JavaScript,
-                                your web apps will be as smooth and elegant as ever! JavaScript is also a modern language with
-                                similar abilities to Python and similar syntax to C.          
-                            </p>
-                        </li>
-                    </ul>
+            <div class="modal-body">
+                <img class="my-4" src="{% static 'academy/tests.jpg' %}" alt="Answer Sheet on Test">
+                <p class="modal-paragraph">
+                    I know exactly what you are going through--standardized tests for college applications are extremely
+                    stressful. I went through exactly the same issues as you might very likely be facing: not knowing
+                    where to start with all the material available for the tests, feeling anxious that you might not
+                    be fully prepared for them, thinking that this one test might decide the course of your studies.
+                    Well. First, let me tell you that you need not worry that much: standardized tests like the SAT, ACT,
+                    AP, etc., are indeed an important factor in your application but not in the least
+                    the only one. 
                     <br>
-                    <p class="modal-paragraph">
-                        Once you have learned one of these languages, you will have the necessary toolset and abilities to carry on
-                        learning other languages and diversifying your CS (computer science) and programming experience.
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button class="btn btn-success" data-dismiss="modal">Enroll in tutoring!</button>
-                </div>
+                    <br>
+                    And in fact, once you learn the ins and outs of these tests, the way they are desgined, 
+                    and the specific techniques that make a successful test taker, the tests will seem like just another
+                    formalism in college applications. Trust me, I've been there. I aim to help you master the techniques of
+                    taking these tests which are much more important than the content itself. Knowing when to skip questions,
+                    guess on ones, focus on others, these are all things I will help you with. Of course, I will also share
+                    teach you the content of the tests and the best ways of learning for them.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button class="btn btn-success" data-dismiss="modal">Enroll in tutoring!</button>
             </div>
         </div>
     </div>
-    <div id="enroll">
-        <hr class="transition">
-        <h2>Enroll in Samos Academy</h2>
-        <form action="{% url 'academy:enroll' %}" method="POST">
-            {% csrf_token %}
-            {{ form | crispy }}
-            <button type="submit" class="btn btn-success btn-lg">Enroll!</button>
-            <button type="button" id="close" class="btn btn-secondary btn-lg">Close</button>
-        </form>
+</div>
+<!-- Programming Modal -->
+<div class="modal fade" id="programmingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Programming and Computer Science</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <img class="my-4" src="{% static 'academy/programming.jpg' %}" alt="Programming Languages">
+                <p class="modal-paragraph">
+                    Programming is one of the most useful abilities a beginning college student can learn. Not only will it
+                    let you stand out in college and later job applications, but it will also make you think in a completely
+                    different way than ordinary human thought. And once you are able to think more algorithmically and
+                    programmatically, the effects ripple towards all areas of your life, providing you with a skillset to
+                    face challenges that come your way. I can teach you how to program in:
+                </p>
+                <ul>
+                    <li>
+                        <h5>Python: </h5>
+                        <p class="modal-li">
+                            Without a doubt the most common and also useful language for someone looking
+                            to pursue a career in data science, scientific research, web programming, and software
+                            development (e.g. UI/UX design).
+                        </p>
+                    </li>
+                    <br>
+                    <li>
+                        <h5>C: </h5>
+                        <p class="modal-li">
+                            A more robust programming language that teaches you about the inner workings
+                            of a computer, providing a deeper understanding of computation, memory management,
+                            data structures, and algorithms. It can be a harder language to learn at first but
+                            it proves very useful not only in learning about computers but also has applications
+                            in the world of engineering, specifically electrical and mechanical engineering, where
+                            C is very commonly used.
+                        </p>
+                    </li>
+                    <br>
+                    <li>
+                        <h5>JavaScript: </h5>
+                        <p class="modal-li">
+                            An essential programming language for the develpoment of interactive,
+                            responsive, and dynamic websites and web applications. Along with a backend framework (such
+                            as flask and django) which rely on Python, and the frontend framework provided by JavaScript,
+                            your web apps will be as smooth and elegant as ever! JavaScript is also a modern language with
+                            similar abilities to Python and similar syntax to C.          
+                        </p>
+                    </li>
+                </ul>
+                <br>
+                <p class="modal-paragraph">
+                    Once you have learned one of these languages, you will have the necessary toolset and abilities to carry on
+                    learning other languages and diversifying your CS (computer science) and programming experience.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button class="btn btn-success" data-dismiss="modal">Enroll in tutoring!</button>
+            </div>
+        </div>
     </div>
+</div>
+<div id="enroll">
+    <hr class="transition">
+    <h2>Enroll in Samos Academy</h2>
+    <form action="{% url 'academy:enroll' %}" method="POST">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <button type="submit" class="btn btn-success btn-lg">Enroll!</button>
+        <button type="button" id="close" class="btn btn-secondary btn-lg">Close</button>
+    </form>
+</div>
 {% endblock %}

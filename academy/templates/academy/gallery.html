@@ -1,28 +1,29 @@
 {% extends 'academy/layout.html' %}
 
 {% block head %}
-    <style>
-        iframe {
-            width: 100% !important;
-            height: auto !important;
-        }
-    </style>
+<!-- Styling for YouTube video embeds -->
+<style>
+    iframe {
+        width: 100% !important;
+        height: auto !important;
+    }
+</style>
 {% endblock %}
 
 {% block title %} Gallery {% endblock %}
 
 {% block body %}
-    <h1>Samos Gallery</h1>
-    <hr>
-    {% if videos %}
-        <div class="flexbox-left">
-            {% for video in videos %}
-                <div class="mx-5 my-5">
-                    <h3>{{ video.title }}</h3>
-                    <h6><i>{{ video.tagline }}</i></h6>
-                    {{ video.code | safe }}
-                </div>
-            {% endfor %}
-        </div>
-    {% endif %}
+<h1>Samos Gallery</h1>
+<hr>
+{% if videos %}
+<div class="flexbox-left">
+    {% for video in videos %}
+    <div class="mx-5 my-5">
+        <h3>{{ video.title }}</h3>
+        <h6><i>{{ video.tagline }}</i></h6>
+        {{ video.code | safe }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
 {% endblock %}
