@@ -6,13 +6,10 @@ from django.contrib.auth.models import User
 from django.contrib import admin
 
 
-SUBJECT_CHOICES = [
+COURSE_CHOICES = [
     ('ph', 'Physics'),
     ('mt', 'Mathematics'),
     ('cs', 'Computer Science'),
-]
-
-EXAMS_CHOICES = [
     ('sat', 'SAT'),
     ('act', 'ACT'),
     ('toefl', 'TOEFL'),
@@ -23,33 +20,10 @@ EXAMS_CHOICES = [
     ('ap_phys_mech', 'AP Physics C: Mechanics'),
 ]
 
-class Subject(models.Model):
+
+class Course(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    subject = models.CharField(max_length=20, choices=SUBJECT_CHOICES)
-    date = models.DateField(auto_now_add=True)
-    viewed = models.IntegerField(null=True, default=0)
-    link = models.TextField(null=True, blank=True)
-
-    created = models.DateTimeField(auto_now_add=True, auto_now=False)
-
-    # Order the subject by date added
-    class Meta:
-        ordering = ('-created',)
-
-    def __str__(self):
-        subjects = {}
-        for subject in SUBJECT_CHOICES:
-            subjects[subject[0]] = subject[1]
-        return self.user.get_full_name() + ' - ' + subjects[self.subject]
-
-
-class SubjectAdmin(admin.ModelAdmin):
-    readonly_fields = ('id',)
-
-
-class Exam(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    exam = models.CharField(max_length=20)
+    title = models.CharField(max_length=20, null=True, choices=COURSE_CHOICES)
     date = models.DateField(auto_now_add=True)
     viewed = models.IntegerField(null=True, default=0)
     test_date = models.DateField(null=True)
@@ -63,13 +37,13 @@ class Exam(models.Model):
 
 
     def __str__(self):
-        exams = {}
-        for exam in EXAMS_CHOICES:
-            exams[exam[0]] = exam[1]
-        return self.user.get_full_name() + ' - ' + exams[self.exam]
+        courses = {}
+        for course in COURSE_CHOICES:
+            courses[course[0]] = course[1]
+        return self.user.get_full_name() + ' - ' + courses[self.title]
 
 
-class ExamAdmin(admin.ModelAdmin):
+class CourseAdmin(admin.ModelAdmin):
     readonly_fields = ('id',)
 
 
@@ -102,7 +76,7 @@ class VideoAdmin(admin.ModelAdmin):
 
 
 class File(models.Model):
-    class_id = models.IntegerField()
+    course_id = models.IntegerField()
     topic = models.CharField(max_length=64)
     title = models.CharField(max_length=64)
     date = models.DateField(auto_now_add=True)

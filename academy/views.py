@@ -13,11 +13,9 @@ from .forms import *
 from .models import *
 
 
-SUBJECT_CHOICES = ['ph', 'mt', 'cs', 'bi']
-
-EXAMS_CHOICES = [ 
-    'sat', 'act', 'toefl', 'ielts','ap_phys1', 
-    'ap_phys2', 'ap_phys_em','ap_phys_mech'
+COURSE_CHOICES = [
+    'ph', 'mt', 'cs', 'bi', 
+    'sat', 'act', 'toefl', 'ielts','ap_phys1', 'ap_phys2', 'ap_phys_em','ap_phys_mech'
 ]
     
 
@@ -36,10 +34,10 @@ def object_required(f):
 
 @login_required
 def index(request):
-    if Subject.objects.filter(user_id=request.user.pk) or Exam.objects.filter(user_id=request.user.pk):
-        return HttpResponseRedirect(reverse('academy:classes'))
+    if Course.objects.filter(user=request.user):
+        return HttpResponseRedirect(reverse('academy:courses'))
     return render(request, 'academy/about.html', {
-        'message': '''**Looks like you haven't enrolled in any classes. '''
+        'message': '''**Looks like you haven't enrolled in any courses. '''
     })
 
 
@@ -70,12 +68,9 @@ def change_profile(request, profile_id, action):
 
 @login_required
 @object_required
-def classes(request):
-    subjects = Subject.objects.filter(user=request.user)
-    exams = Exam.objects.filter(user_id=request.user.pk)
-    return render(request, 'academy/classes.html', {
-        'subjects': subjects,
-        'exams': exams
+def courses(request):
+    return render(request, 'academy/courses.html', {
+        'courses': Course.objects.filter(user=request.user),
     })
 
 
@@ -88,33 +83,32 @@ def enroll(request):
             new_exam = form.cleaned_data['exam']
             if len(new_subjects) != 0 or new_exam != '':
                 for subject in new_subjects:
-                    if Subject.objects.filter(user=request.user, subject=subject):
+                    if Course.objects.filter(user=request.user, title=subject):
                         messages.warning(request, 'You have already enrolled in all or some of the subjects chosen.')
                         return HttpResponseRedirect(reverse('academy:enroll'))
-                    elif subject not in SUBJECT_CHOICES:
+                    elif subject not in COURSE_CHOICES:
                         messages.warning(request, 'That is not a valid subject.')
-                        return HttpResponseRedirect(reverse('academy:enroll'))
-                    Subject(
+                        return HttpResponseRedirect(reverse('academy:courses'))
+                    Course(
                         user=request.user,
-                        subject=subject,
+                        title=subject,
                     ).save()
-                if Exam.objects.filter(user=request.user, exam=new_exam):
-                    messages.warning(request, 'You have already enrolled in all or some of the exams chosen.')
-                    return HttpResponseRedirect(reverse('academy:enroll'))
+                if Course.objects.filter(user=request.user, title=new_exam):
+                    messages.warning(request, 'You have already enrolled the exam chosen.')
+                    return HttpResponseRedirect(reverse('academy:courses'))
                 if new_exam != '':
-                    if new_exam not in EXAMS_CHOICES:
+                    if new_exam not in COURSE_CHOICES:
                         messages.warning(request, 'That is not a valid exam.')
                         return HttpResponseRedirect(reverse('academy:enroll'))
-                    Exam(
+                    Course(
                         user=request.user,
-                        exam=new_exam,
+                        title=new_exam,
                         test_date=form.cleaned_data['test_date'],
                     ).save()
                 messages.success(request, '''You've enrolled! I will reach out to you with further details.''')
-                return HttpResponseRedirect(reverse('academy:classes'))
+                return HttpResponseRedirect(reverse('academy:courses'))
             messages.warning(request, 'Please fill out the form.')
-            return HttpResponseRedirect(reverse('academy:enroll'))
-                
+            return HttpResponseRedirect(reverse('academy:enroll'))    
     return render(request, 'academy/enroll.html', {
         'form': EnrollForm()
     })    
@@ -176,11 +170,9 @@ def account(request, action=''):
                 user = User.objects.get(pk=request.user.pk)
             except ObjectDoesNotExist:
                 messages.warning(request, 'Looks like that account does not exist.')
-            subjects = Subject.objects.filter(user=user)
-            exams = Exam.objects.filter(user=user)
-            for subject, exam in zip(subjects, exams):
-                File.objects.filter(class_id=subject.pk).delete()
-                File.objects.filter(class_id=exam.pk).delete()
+            courses = Course.objects.filter(user=user)
+            for course in courses:
+                File.objects.filter(couse_id=course.pk).delete()
             user.delete()
             messages.success(request, '''Account deleted. We're sorry to see you go.''')
             return HttpResponseRedirect(reverse('academy:login'))
@@ -251,27 +243,14 @@ def schedule(request):
 
 @login_required
 @object_required
-def view_class(request, class_type, class_id):
+def view_course(request, course_id):
     if request.method == 'POST':
-        if class_type == 'Subject':
-            Subject.objects.get(pk=class_id).delete()
-        elif class_type == 'Exam':
-            Exam.objects.get(pk=class_id).delete()
-        else:
-            messages.warning(request, 'Invalid class type. Please try again.')
-            return HttpResponseRedirect(reverse('academy:classes'))
-        messages.success(request, 'You have successfully dropped the class.')
-        return HttpResponseRedirect(reverse('academy:classes'))
+        Course.objects.get(pk=course_id).delete()
+        messages.success(request, 'You have successfully dropped the course.')
+        return HttpResponseRedirect(reverse('academy:courses'))
 
-    print(File.objects.filter(class_id=class_id))
-    if class_type == 'Subject':
-        return render(request, 'academy/view_class.html', {
-            'class': Subject.objects.get(pk=class_id),
-            'class_type': 'Subject',
-            'files': File.objects.filter(class_id=class_id)
-        })
-    return render(request, 'academy/view_class.html', {
-            'class': Exam.objects.get(pk=class_id),
-            'class_type': 'Exam',
-            'files': File.objects.filter(class_id=class_id)
-        })
+    course = Course.objects.get(pk=course_id)
+    return render(request, 'academy/view_course.html', {
+        'course': course,
+        'files': File.objects.filter(course_id=course.pk)
+    })

@@ -48,7 +48,7 @@ class EnrollForm(forms.Form):
         required=False,
         widget=forms.RadioSelect,
         choices=EXAMS_CHOICES,
-        help_text='''Are there any exams you want to study for? If planning on taking another exam, 
+        help_text='''Is there any exam you want to study for? If planning on taking another exam, 
                     include it in comments below.''',
     )
     test_date = forms.DateTimeField(

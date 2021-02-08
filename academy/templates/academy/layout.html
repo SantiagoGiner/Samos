@@ -27,7 +27,7 @@
                     {% if user.is_authenticated %}
                         <a class="nav-item mx-2" href="{% url 'academy:about' %}">&#10068;About</a>
                         <a class="nav-item mx-2" href="{% url 'academy:enroll' %}">&#127941;Enroll</a>
-                        <a class="nav-item mx-2" href="{% url 'academy:classes' %}">&#128218;{{ user.first_name }}'s classes</a>
+                        <a class="nav-item mx-2" href="{% url 'academy:courses' %}">&#128218;{{ user.first_name }}'s courses</a>
                         <a class="nav-item mx-2" href="{% url 'academy:schedule' %}">&#128197;Schedule a meeting</a>
                         <a class="nav-item mx-2" href="{% url 'academy:account' %}">&#128100;{{ user.first_name }}'s account</a>
                         <a class="nav-item ml-2 mr-5" href="{% url 'academy:gallery' %}">&#127909;Gallery</a>
