@@ -4,6 +4,8 @@ Aristarchus (who presented the first-known heliocentric model), and the philosop
 tutoring, such as enrollment, recording of classes viewed, sharing of files, etc. I view it not only as my own platform for classes but as a way for tutees to keep track
 of what they are learning, helping them have a more structured and smooth learning experience.
 
+<img src="academy/static/academy/logo.jpg" width="400">
+
 ## Enrolling
 Through this feature, new students can browse the topics I am comfortable teaching (mainly physics, math, standardized tests, chemistry, biology, and computer science). They
 can then submit a form with the classes that are of interest to them. Once they enroll in a class, it will appear in their own classes section.
