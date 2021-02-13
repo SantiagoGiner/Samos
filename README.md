@@ -17,3 +17,8 @@ students to reflect on their own interests and what they want to do later in lif
 
 ## Gallery
 This section contains relevant videos instructors have recorded from classes themselves or that introduce a general topic. They provide the student with material they can review outside of class.
+
+## Admin
+In the Django admin page is where instructors would be able to view and make changes to the database. Specifically, it provides the following functionalities:
+* Viewing the students who have enrolled: since the Student has a many-to-many relationship with Course, one can see all the courses a specific student is taking, makin it easy to identify the necessary Course object to which to upload a file.
+* Managing classes: Once an instructor finishes a tutoring session with a student, they can update the number of classes the student(s) have viewed on a particular course and    upload any relevant files to the database, using the course's id to determine in which specific instance of the Course should the file appear, i.e. which student(s) should view the file.
