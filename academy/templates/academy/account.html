@@ -38,7 +38,7 @@
 <button class="btn btn-primary my-3" id="toggle_form">Update profile</button>
 <div id="update_profile_form">
     <!-- Form to update the entry -->
-    <form action="{% url 'academy:change_profile' profile.pk 'update' %}" enctype="multipart/form-data" method="POST">
+    <form action="{% url 'academy:change_profile' 'update' %}" enctype="multipart/form-data" method="POST">
         {% csrf_token %}
         {{ update_profile_form | crispy }}
         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
@@ -67,7 +67,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <form action="{% url 'academy:change_profile' profile.pk 'delete' %}" method="POST">
+                <form action="{% url 'academy:change_profile' 'delete' %}" method="POST">
                     {% csrf_token %}
                     <button class="btn btn-danger my-5" type="submit">Yes, delete profile</button>
                 </form>

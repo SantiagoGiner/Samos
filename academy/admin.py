@@ -3,6 +3,6 @@ from .models import *
 
 
 admin.site.register(Course, CourseAdmin)
-admin.site.register(Profile, ProfileAdmin)
-admin.site.register(Video, VideoAdmin)
 admin.site.register(File, FileAdmin)
+admin.site.register(Student, StudentAdmin)
+admin.site.register(Video, VideoAdmin)

@@ -20,6 +20,6 @@ urlpatterns = [
     path('drop_course/<int:course_id>/', views.view_course, name='drop_course'),
     path('account/', views.account, name='account'),
     path('account/<str:action>/', views.account, name='change_account'),
-    path('profile/<int:profile_id>/<str:action>/', views.change_profile, name='change_profile'),
+    path('profile/<str:action>/', views.change_profile, name='change_profile'),
     path('gallery/', views.gallery, name='gallery')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

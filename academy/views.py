@@ -48,19 +48,86 @@ def about(request):
 
 
 @login_required
-@object_required
-def change_profile(request, profile_id, action):
+def account(request, action=''):
+    student = Student.objects.get(user=request.user)
     if request.method == 'POST':
+        if action == 'profile':
+            student.country = request.POST['country']
+            student.city = request.POST['city']
+            student.bio = request.POST['bio']
+            student.photo = request.FILES['photo']
+            student.save()
+            messages.success(request, 'You have successfully created your profile!')
+            return HttpResponseRedirect(reverse('academy:account'))
+        elif action == 'delete':
+            try:
+                user = User.objects.get(pk=request.user.pk)
+            except ObjectDoesNotExist:
+                messages.warning(request, 'Looks like that account does not exist.')
+            courses = Course.objects.filter(user=user)
+            for course in courses:
+                File.objects.filter(couse_id=course.pk).delete()
+            user.delete()
+            messages.success(request, '''Account deleted. We're sorry to see you go.''')
+            return HttpResponseRedirect(reverse('academy:login'))
+        elif action == 'manage':
+            form = ManageAccountForm(request.POST)
+            if form.is_valid():
+                user = User.objects.get(pk=request.user.pk)
+                user.username = form.cleaned_data['username']
+                user.first_name = form.cleaned_data['first_name']
+                user.last_name = form.cleaned_data['last_name']
+                user.save()
+                messages.success(request, 'Account information updated successfully!')
+            return HttpResponseRedirect(reverse('academy:account'))
+        else:
+            messages.warning(request, 'That method is not valid. Please try again.')
+            return HttpResponseRedirect(reverse('academy:account'))
+    if student.country:
+        profile = Student.objects.get(user=request.user)
+        return render(request, 'academy/account.html', {
+        'profile': profile,
+        'update_profile_form': ProfileForm({
+            'country': profile.country, 
+            'city': profile.city, 
+            'bio': profile.bio,
+            'photo': profile.photo
+        }),
+        'manage_account_form': ManageAccountForm({
+            'username': request.user.username,
+            'first_name': request.user.first_name,
+            'last_name': request.user.last_name
+        })
+    })
+    else:
+        return render(request, 'academy/account.html', {
+            'add_profile_form': ProfileForm(),
+            'manage_account_form': ManageAccountForm({
+                'username': request.user.username,
+                'first_name': request.user.first_name,
+                'last_name': request.user.last_name
+            })
+        })
+
+
+@login_required
+@object_required
+def change_profile(request, action):
+    if request.method == 'POST':
+        student = Student.objects.get(user=request.user)
         if action == 'delete':
-            Profile.objects.get(pk=profile_id).delete()
+            student.country=None
+            student.city=None
+            student.bio=None
+            student.photo=None
+            student.save()
             messages.success(request, 'You have deleted your profile.')
         elif action == 'update':
-            profile = Profile.objects.get(pk=profile_id)
-            profile.country = request.POST['country']
-            profile.city = request.POST['city']
-            profile.bio = request.POST['bio']
-            profile.photo = request.FILES['photo']
-            profile.save()
+            student.country=request.POST['country']
+            studentcity=request.POST['city']
+            student.bio=request.POST['bio']
+            student.photo=request.FILES['photo']
+            student.save()
             messages.success(request, 'Profile successfully updated!')
         else:
             messages.warning(request, f'The action {action} is invalid.')
@@ -83,28 +150,30 @@ def enroll(request):
             new_exam = form.cleaned_data['exam']
             if len(new_subjects) != 0 or new_exam != '':
                 for subject in new_subjects:
-                    if Course.objects.filter(user=request.user, title=subject):
+                    if Course.objects.filter(user=request.user, code=subject):
                         messages.warning(request, 'You have already enrolled in all or some of the subjects chosen.')
                         return HttpResponseRedirect(reverse('academy:enroll'))
                     elif subject not in COURSE_CHOICES:
                         messages.warning(request, 'That is not a valid subject.')
                         return HttpResponseRedirect(reverse('academy:courses'))
-                    Course(
+                    subject_course = Course(
                         user=request.user,
-                        title=subject,
-                    ).save()
-                if Course.objects.filter(user=request.user, title=new_exam):
+                        code=subject,
+                    )
+                    subject_course.save()
+                if Course.objects.filter(user=request.user, code=new_exam):
                     messages.warning(request, 'You have already enrolled the exam chosen.')
                     return HttpResponseRedirect(reverse('academy:courses'))
                 if new_exam != '':
                     if new_exam not in COURSE_CHOICES:
                         messages.warning(request, 'That is not a valid exam.')
                         return HttpResponseRedirect(reverse('academy:enroll'))
-                    Course(
+                    exam_course = Course(
                         user=request.user,
-                        title=new_exam,
+                        code=new_exam,
                         test_date=form.cleaned_data['test_date'],
-                    ).save()
+                    )
+                    exam_course.save()
                 messages.success(request, '''You've enrolled! I will reach out to you with further details.''')
                 return HttpResponseRedirect(reverse('academy:courses'))
             messages.warning(request, 'Please fill out the form.')
@@ -152,70 +221,6 @@ def logout_view(request):
     return HttpResponseRedirect(reverse('academy:login'))
 
 
-@login_required
-def account(request, action=''):
-    if request.method == 'POST':
-        if action == 'profile':
-            Profile(
-                user=request.user,
-                country=request.POST['country'],
-                city=request.POST['city'],
-                bio=request.POST['bio'],
-                photo=request.FILES['photo'],
-            ).save()
-            messages.success(request, 'You have successfully created your profile!')
-            return HttpResponseRedirect(reverse('academy:account'))
-        elif action == 'delete':
-            try:
-                user = User.objects.get(pk=request.user.pk)
-            except ObjectDoesNotExist:
-                messages.warning(request, 'Looks like that account does not exist.')
-            courses = Course.objects.filter(user=user)
-            for course in courses:
-                File.objects.filter(couse_id=course.pk).delete()
-            user.delete()
-            messages.success(request, '''Account deleted. We're sorry to see you go.''')
-            return HttpResponseRedirect(reverse('academy:login'))
-        elif action == 'manage':
-            form = ManageAccountForm(request.POST)
-            if form.is_valid():
-                user = User.objects.get(pk=request.user.pk)
-                user.username = form.cleaned_data['username']
-                user.first_name = form.cleaned_data['first_name']
-                user.last_name = form.cleaned_data['last_name']
-                user.save()
-                messages.success(request, 'Account information updated successfully!')
-            return HttpResponseRedirect(reverse('academy:account'))
-        else:
-            messages.warning(request, 'That method is not valid. Please try again.')
-            return HttpResponseRedirect(reverse('academy:account'))
-    try:
-        profile = Profile.objects.get(user_id=request.user.pk)
-        return render(request, 'academy/account.html', {
-        'profile': profile,
-        'update_profile_form': ProfileForm({
-            'country': profile.country, 
-            'city': profile.city, 
-            'bio': profile.bio,
-            'photo': profile.photo
-        }),
-        'manage_account_form': ManageAccountForm({
-            'username': request.user.username,
-            'first_name': request.user.first_name,
-            'last_name': request.user.last_name
-        })
-    })
-    except ObjectDoesNotExist:
-        return render(request, 'academy/account.html', {
-            'add_profile_form': ProfileForm(),
-            'manage_account_form': ManageAccountForm({
-                'username': request.user.username,
-                'first_name': request.user.first_name,
-                'last_name': request.user.last_name
-            })
-        })
-
-
 def register(request):
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
@@ -227,6 +232,7 @@ def register(request):
             # Log the user in
             new_user = authenticate(request, username=username, password=password)
             login(request, new_user)
+            Student(user=request.user).save()
             messages.success(request, 'You have successfully registered!')
             return HttpResponseRedirect(reverse('academy:index'))
         messages.warning(request, 

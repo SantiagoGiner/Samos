@@ -20,10 +20,14 @@ COURSE_CHOICES = [
     ('ap_phys_mech', 'AP Physics C: Mechanics'),
 ]
 
+COURSES = {}
+for course in COURSE_CHOICES:
+    COURSES[course[0]] = course[1]
+
 
 class Course(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    title = models.CharField(max_length=20, null=True, choices=COURSE_CHOICES)
+    code = models.CharField(max_length=20, null=True, choices=COURSE_CHOICES)
     date = models.DateField(auto_now_add=True)
     viewed = models.IntegerField(null=True, default=0)
     test_date = models.DateField(null=True)
@@ -35,44 +39,20 @@ class Course(models.Model):
     class Meta:
         ordering = ('-created',)
 
+    def user_course_name(self):
+        return self.user.get_full_name() + ' - ' + COURSES[self.code]
 
     def __str__(self):
-        courses = {}
-        for course in COURSE_CHOICES:
-            courses[course[0]] = course[1]
-        return self.user.get_full_name() + ' - ' + courses[self.title]
+        return COURSES[self.code]
 
 
 class CourseAdmin(admin.ModelAdmin):
-    readonly_fields = ('id',)
+    readonly_fields = ('pk',)
 
-
-class Profile(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    country = CountryField()
-    city = models.CharField(max_length=64)
-    bio = models.TextField()
-    photo = models.ImageField(null=True, upload_to='profiles/')
-
-    def __str__(self):
-        return 'Profile: ' + self.user.get_username()
-
-
-class ProfileAdmin(admin.ModelAdmin):
-    readonly_fields = ('id',)
-
-
-class Video(models.Model):
-    tagline = models.CharField(max_length=64)
-    title = models.CharField(max_length=100)
-    code = models.TextField()
-
-    def __str__(self):
-        return self.title
-
-
-class VideoAdmin(admin.ModelAdmin):
-    readonly_fields = ('id',)
+    def get_list_display(self, request):
+        if request.user.is_superuser:
+            return ('user_course_name',)
+        return ('__str__',)
 
 
 class File(models.Model):
@@ -87,4 +67,32 @@ class File(models.Model):
 
 
 class FileAdmin(admin.ModelAdmin):
-    readonly_fields = ('id',)
+    readonly_fields = ('pk',)
+
+
+class Student(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    courses = models.ManyToManyField(Course, blank=True)
+    country = CountryField(null=True, blank=True)
+    city = models.CharField(max_length=64, null=True, blank=True)
+    bio = models.TextField(null=True, blank=True)
+    photo = models.ImageField(null=True, upload_to='profiles/', blank=True)
+
+    def __str__(self):
+        return self.user.get_full_name()
+
+class StudentAdmin(admin.ModelAdmin):
+    readonly_fields = ('pk',)
+
+
+class Video(models.Model):
+    tagline = models.CharField(max_length=64)
+    title = models.CharField(max_length=100)
+    code = models.TextField()
+
+    def __str__(self):
+        return self.title
+
+
+class VideoAdmin(admin.ModelAdmin):
+    readonly_fields = ('pk',)

@@ -27,11 +27,11 @@
 <div class="card-columns text-center">
     {% for course in courses %}
     <div class="card w-75 mx-3 my-3 p-2">
-        {% if course.title == 'ph' %}
+        {% if course.code == 'ph' %}
         <img class="card-img-top" src="{% static 'academy/physics.jpg' %}" alt="Physics formulae">
-        {% elif course.title == 'mt' %}
+        {% elif course.code == 'mt' %}
         <img class="card-img-top" src="{% static 'academy/mathematics.jpg' %}" alt="Math formulae">
-        {% elif course.title == 'cs' %}
+        {% elif course.code == 'cs' %}
         <img class="card-img-top" src="{% static 'academy/programming.jpg' %}" alt="Programming">
         {% else %}
         <img src="{% static 'academy/tests.jpg' %}" alt="Standardized Tests">
