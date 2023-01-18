@@ -1,10 +1,15 @@
 # Samos Academy
+
+Check out a video I made going through the main features of the website!
+
+[![Samos - Tutoring Website](https://img.youtube.com/vi/zuqR85pC-dE/0.jpg)](https://youtu.be/zuqR85pC-dE)
+
+<hr>
+
 Samos Academy is the name I have given my tutoring classes. Samos is a small Greek island in the Aegan Sea——the birthplace of fundamental figures in science such as Pythagoras,
 Aristarchus (who presented the first-known heliocentric model), and the philosopher Epicurus. I created this website as way to automate many of the processes involved with
 tutoring, such as enrollment, recording of classes viewed, sharing of files, etc. I view it not only as my own platform for classes but as a way for tutees to keep track
 of what they are learning, helping them have a more structured and smooth learning experience.
-
-<img src="academy/static/academy/logo.jpg" width="400">
 
 ## Enrolling
 Through this feature, new students can browse the topics I am comfortable teaching (mainly physics, math, standardized tests, chemistry, biology, and computer science). They
