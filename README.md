@@ -1,6 +1,10 @@
 # Samos Academy
 
-Check out a video I made going through the main features of the website!
+Check out a 
+<a href="https://youtu.be/zuqR85pC-dE" target="_blank">
+video
+</a>
+I made going through the main features of the website!
 
 [![Samos - Tutoring Website](https://img.youtube.com/vi/zuqR85pC-dE/0.jpg)](https://youtu.be/zuqR85pC-dE)
 
